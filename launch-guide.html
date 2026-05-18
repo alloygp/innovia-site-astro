@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AGP Astro — Site Launch Guide</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #181c27;
+      --surface2: #1e2333;
+      --border: #2a3048;
+      --accent: #6c8ef5;
+      --accent-dim: #3b4e9e;
+      --green: #34c97d;
+      --green-dim: #1a4a35;
+      --yellow: #f5c842;
+      --yellow-dim: #4a3d10;
+      --red: #f56060;
+      --red-dim: #4a1a1a;
+      --text: #e2e8f0;
+      --text-muted: #8892a4;
+      --text-dim: #5a6378;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 32px 20px 80px;
+    }
+
+    .container { max-width: 860px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .header {
+      margin-bottom: 40px;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+    .logo-badge {
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .header-sub {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* ── Progress bar ── */
+    .progress-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .progress-label strong { color: var(--text); }
+    .progress-bar-bg {
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+
+    /* ── Phase pills (top-level overview) ── */
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 680px) {
+      .phases-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .phase-pill {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      user-select: none;
+    }
+    .phase-pill:hover { border-color: var(--accent); background: #212740; }
+    .phase-pill.done { border-color: var(--green); background: var(--green-dim); }
+    .phase-pill.done .phase-icon { color: var(--green); }
+    .phase-pill.done .phase-name { color: var(--green); }
+    .phase-pill.active { border-color: var(--accent); background: #1c2340; }
+    .phase-icon { font-size: 18px; display: block; margin-bottom: 4px; }
+    .phase-name { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: .03em; }
+    .phase-count { font-size: 10px; color: var(--text-dim); margin-top: 2px; }
+
+    /* ── Sections ── */
+    .section {
+      margin-bottom: 16px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      user-select: none;
+      transition: border-color .2s, background .2s;
+    }
+    .section-header:hover { border-color: var(--accent-dim); }
+    .section.open .section-header {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-color: var(--border);
+      background: var(--surface2);
+    }
+    .section-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section.done .section-num { background: var(--green-dim); color: var(--green); }
+    .section-title-wrap { flex: 1; }
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .section-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      letter-spacing: .04em;
+    }
+    .badge-script { background: var(--accent-dim); color: var(--accent); }
+    .badge-manual { background: var(--yellow-dim); color: var(--yellow); }
+    .badge-verify { background: #2a1f4a; color: #a78bfa; }
+    .badge-launch { background: var(--green-dim); color: var(--green); }
+    .chevron {
+      color: var(--text-dim);
+      font-size: 12px;
+      transition: transform .25s;
+    }
+    .section.open .chevron { transform: rotate(90deg); }
+
+    /* ── Section body ── */
+    .section-body {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+      padding: 0 20px 20px;
+    }
+    .section.open .section-body { display: block; }
+
+    .why-box {
+      background: #1a1e2e;
+      border-left: 3px solid var(--accent-dim);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 14px;
+      margin: 16px 0 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .why-box strong { color: var(--accent); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 4px; }
+
+    /* ── Checklist ── */
+    .checklist { list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      flex: 1;
+    }
+    .checklist input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px; height: 17px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface2);
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: background .15s, border-color .15s;
+      position: relative;
+    }
+    .checklist input[type="checkbox"]:checked {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .checklist input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 3px; top: 1px;
+      width: 7px; height: 4px;
+      border-left: 2px solid #fff;
+      border-bottom: 2px solid #fff;
+      transform: rotate(-45deg);
+    }
+    .checklist li.checked .item-text {
+      color: var(--text-dim);
+      text-decoration: line-through;
+      text-decoration-color: var(--text-dim);
+    }
+    .item-text { flex: 1; }
+    .item-text .item-detail {
+      display: block;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    /* ── Code block ── */
+    .code-block {
+      background: #0d1119;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12.5px;
+      color: #a8c4f0;
+      overflow-x: auto;
+      margin: 14px 0 4px;
+      line-height: 1.65;
+      white-space: pre;
+    }
+    .code-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 4px;
+    }
+
+    /* ── Sub-sections ── */
+    .sub-section {
+      margin: 18px 0 6px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .sub-section:first-child { border-top: none; }
+    .sub-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sub-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px; height: 14px;
+      background: var(--accent-dim);
+      border-radius: 2px;
+    }
+
+    /* ── Tags ── */
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 99px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .tag-optional { background: #2a1f4a; color: #9d7ff0; }
+    .tag-critical { background: var(--red-dim); color: var(--red); }
+    .tag-auto { background: var(--green-dim); color: var(--green); }
+
+    /* ── Links ── */
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Tip box ── */
+    .tip {
+      background: var(--yellow-dim);
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #c9a32a;
+      margin: 14px 0;
+      line-height: 1.55;
+    }
+    .tip strong { color: var(--yellow); }
+
+    /* ── Done banner ── */
+    .done-banner {
+      display: none;
+      background: var(--green-dim);
+      border: 1px solid var(--green);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    /* ── Mode toggle ── */
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 4px;
+      width: fit-content;
+      margin-bottom: 24px;
+    }
+    .mode-btn {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 99px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .mode-btn.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+    body.no-terminal .mode-btn.active { background: var(--green-dim); color: var(--green); }
+
+    /* show/hide terminal vs no-terminal content */
+    .terminal-path { display: block; }
+    .noterminal-path { display: none; }
+    body.no-terminal .terminal-path { display: none; }
+    body.no-terminal .noterminal-path { display: block; }
+
+    /* ── Alt box (no-terminal alternative) ── */
+    .alt-box {
+      background: #141e14;
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 14px;
+      margin: 14px 0 4px;
+      font-size: 13px;
+      color: #7ecf9b;
+      line-height: 1.55;
+    }
+    .alt-box strong { color: var(--green); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; display: block; margin-bottom: 4px; }
+
+    /* ── Divider label ── */
+    .divider-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .divider-label::before, .divider-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <span class="logo-badge">AGP</span>
+      <h1>Astro Site Launch Guide</h1>
+    </div>
+    <p class="header-sub">Start to finish — from "Use template" to live on Vercel. Check off as you go.</p>
+  </div>
+
+  <!-- Mode toggle -->
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btn-terminal" onclick="setMode('terminal')">💻 With Terminal</button>
+    <button class="mode-btn" id="btn-noterminal" onclick="setMode('noterminal')">🖱 No Terminal</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Overall progress</span>
+      <strong id="progress-text">0 / 0 tasks</strong>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+
+    <!-- Phase overview pills -->
+    <div class="phases-grid">
+      <div class="phase-pill" onclick="scrollToSection('sec1')">
+        <span class="phase-icon">📁</span>
+        <span class="phase-name">Repo Setup</span>
+        <span class="phase-count" id="ph1-count"></span>
+      </div>
+      <div class="phase-pill" onclick="scrollToSection('sec2')">
+        <span class="phase-icon">⚡</span>
+        <span class="phase-name">Kickoff Script</span>
+        <span class="phase-count" id="ph2-count"></span>
+      </div>
+      <div class="phase-pill" onclick="scrollToSection('sec3')">
+        <span class="phase-icon">🎨</span>
+        <span class="phase-name">Assets & Config</span>
+        <span class="phase-count" id="ph3-count"></span>
+      </div>
+      <div class="phase-pill" onclick="scrollToSection('sec4')">
+        <span class="phase-icon">🔍</span>
+        <span class="phase-name">SEO Review</span>
+        <span class="phase-count" id="ph4-count"></span>
+      </div>
+      <div class="phase-pill" onclick="scrollToSection('sec5')">
+        <span class="phase-icon">🚀</span>
+        <span class="phase-name">Launch</span>
+        <span class="phase-count" id="ph5-count"></span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PHASE 1 — REPO SETUP
+  ══════════════════════════════════════ -->
+  <div class="divider-label">Phase 1 — Repo Setup</div>
+
+  <div class="section" id="sec1">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">1</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Create the repo from the template</div>
+        <div class="section-subtitle">GitHub "Use this template" → clone locally</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-manual">Manual</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        Using "Use this template" creates a clean, unrelated repo — not a fork. This means no shared git history with the starter and no risk of accidentally syncing changes back to the template.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">On GitHub</div>
+        <ul class="checklist" data-phase="1">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Go to <a href="https://github.com/alloygp/agp-astro-starter" target="_blank">agp-astro-starter</a> and click <strong>Use this template → Create a new repository</strong>
+                <span class="item-detail">Name it something like <code>clientname-site</code>. Set visibility as needed.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Clone it to your machine
+              </span>
+            </label>
+          </li>
+        </ul>
+
+        <div class="terminal-path">
+          <div class="code-label">Clone command</div>
+          <div class="code-block">git clone https://github.com/alloygp/[clientname-site].git
+cd [clientname-site]</div>
+        </div>
+        <div class="noterminal-path">
+          <div class="alt-box">
+            <strong>No Terminal — use GitHub Desktop</strong>
+            In <a href="https://desktop.github.com" target="_blank">GitHub Desktop</a>: File → Clone Repository → GitHub.com tab → find your new repo → choose a local path → Clone. Or in VS Code: open the Command Palette → "Git: Clone" → paste the repo URL.
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section terminal-path">
+        <div class="sub-title">Install dependencies</div>
+        <ul class="checklist" data-phase="1">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Install npm packages
+                <span class="item-detail">Requires Node 18+. Run <code>node -v</code> to confirm.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+        <div class="code-block">npm install</div>
+      </div>
+
+      <div class="sub-section noterminal-path">
+        <div class="sub-title">Install dependencies</div>
+        <div class="alt-box">
+          <strong>No Terminal — VS Code integrated terminal</strong>
+          Open the project folder in VS Code (File → Open Folder). Open the integrated terminal with <strong>Ctrl+`</strong> (backtick) or Terminal menu → New Terminal, then run <code>npm install</code>. VS Code's terminal is the same thing, just built in — you don't need a separate Terminal app.
+        </div>
+        <div class="tip" style="margin-top:10px"><strong>Or skip for now:</strong> If you're only editing files (not running the site locally), you can skip install. Vercel installs packages automatically on every deploy.</div>
+      </div>
+
+      <div class="sub-section terminal-path">
+        <div class="sub-title">Confirm dev server works</div>
+        <ul class="checklist" data-phase="1">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Run the dev server and confirm it loads at <code>localhost:4321</code>
+                <span class="item-detail">This is just a sanity check — the site still says "Client Name" everywhere, that's fine.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+        <div class="code-block">npm run dev</div>
+      </div>
+
+      <div class="sub-section noterminal-path">
+        <div class="sub-title">Preview the site</div>
+        <div class="alt-box">
+          <strong>No Terminal — use Vercel preview deploys instead</strong>
+          Skip the local dev server. Once you connect the repo to Vercel (Phase 5), every push to GitHub creates a preview URL automatically. You can review the actual site there without ever running it locally.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sec2-prep">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">2</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Gather pre-kickoff materials</div>
+        <div class="section-subtitle">Master brief + optional Screaming Frog crawl</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-manual">Manual</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        The kickoff script auto-detects these files and uses them to pre-fill the SEO tracker and launch readiness checker. Drop them in before running the script or you'll need to re-run it.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Master Brief <span class="tag tag-optional">Optional but recommended</span></div>
+        <ul class="checklist" data-phase="1">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Generate the master brief using the Master Brief Generator skill (if not already done)
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Save it as <code>_client/master_brief.html</code> (or .pdf) in the repo root
+                <span class="item-detail">Any filename starting with <code>master_brief</code> is auto-detected.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Screaming Frog crawl <span class="tag tag-optional">Optional — for existing sites only</span></div>
+        <ul class="checklist" data-phase="1">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Open Screaming Frog and crawl the client's <em>current/old</em> domain
+                <span class="item-detail">Only needed if the client has an existing site you're migrating from. Gives you a redirect map.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Export: Filter → <strong>Internal</strong> → File → Export All → save as <code>exports/sf_internal.csv</code>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PHASE 2 — KICKOFF SCRIPT
+  ══════════════════════════════════════ -->
+  <div class="divider-label">Phase 2 — Kickoff Script</div>
+
+  <div class="section" id="sec2">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">3</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Run the kickoff script</div>
+        <div class="section-subtitle">Generates SEO tracker, launch checker, and pre-fills all config files</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-script">Script</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        This one command replaces ~20 minutes of tedious manual find-and-replace across config files. It also generates the SEO tracker spreadsheet and the launch readiness HTML — both client deliverables you'd have to make by hand otherwise.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Option A — Ask Claude (recommended for both paths)</div>
+        <ul class="checklist" data-phase="2">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Open this repo in Cowork and say <em>"kick off [Client Name] on [domain.com]"</em>
+                <span class="item-detail">Claude will ask for any missing details (phone, city, state, etc.) and run the script automatically — no terminal needed on your end.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section terminal-path">
+        <div class="sub-title">Option B — Run it yourself in the terminal</div>
+        <ul class="checklist" data-phase="2">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Run the kickoff command in your terminal from the repo root
+              </span>
+            </label>
+          </li>
+        </ul>
+        <div class="code-label">Non-interactive command</div>
+        <div class="code-block">python3 scripts/kickoff.py \
+  --name "Client Name" \
+  --domain "clientdomain.com" \
+  --owner "Skyler" \
+  --phone "(XXX) XXX-XXXX" \
+  --city "City" \
+  --state "ST" \
+  --description "130-160 char meta description" \
+  --tagline "Short tagline here" \
+  --notify "notify@clientdomain.com" \
+  --yes</div>
+
+        <div class="tip"><strong>Tip:</strong> If you have the Ahrefs API key set in your shell (<code>export AHREFS_API_KEY=...</code>), backlink data is auto-fetched and baked into the launch checker. Otherwise it'll just be empty.</div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">What just happened</div>
+        <ul class="checklist" data-phase="2">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm <code>_build/[slug]_seo_tracker.xlsx</code> was created
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm <code>_build/[slug]_launch_readiness.html</code> was created
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm <code>.env</code> was written at the repo root
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Open <code>src/config/site.ts</code> and verify the client name, domain, phone, city, state are filled in
+                <span class="item-detail">Any fields you didn't pass will still say <code>TODO</code> — fill those in manually.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PHASE 3 — ASSETS & CONFIG
+  ══════════════════════════════════════ -->
+  <div class="divider-label">Phase 3 — Assets & Config</div>
+
+  <div class="section" id="sec3">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">4</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Add brand assets</div>
+        <div class="section-subtitle">Logo, favicon, and OG image — these must exist before you build</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-manual">Manual</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        The OG image and favicon are referenced in the HTML <code>&lt;head&gt;</code> on every page. If they don't exist, social shares will be broken and the browser tab will show no icon. The logo is loaded by site components — a missing file causes build errors.
+      </div>
+
+      <ul class="checklist" data-phase="3">
+        <li>
+          <label>
+            <input type="checkbox" />
+            <span class="item-text">
+              Add logo → <code>public/assets/logo.svg</code>
+              <span class="item-detail">SVG preferred. Used in the site header and schema markup.</span>
+            </span>
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" />
+            <span class="item-text">
+              Add OG image → <code>public/assets/og.png</code>
+              <span class="item-detail">Must be exactly 1200×630px, PNG format, under 300KB. This is the default social card for all pages. Include brand name and tagline.</span>
+            </span>
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" />
+            <span class="item-text">
+              Add favicon → <code>public/assets/favicon.png</code>
+              <span class="item-detail">Square PNG, minimum 32px. 512px recommended for best quality across devices.</span>
+            </span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">5</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Fill in any remaining config TODOs</div>
+        <div class="section-subtitle">site.ts, email.config.ts, robots.txt, sitemap.xml</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-manual">Manual</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        The kickoff script pre-fills what you gave it. Anything you skipped (Twitter handle, description, etc.) still has a <code>TODO</code> placeholder. These all render into live HTML on every page — launching with <code>TODO</code> values means broken schema and bad meta tags.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">src/config/site.ts — the single source of truth</div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>twitterHandle</code> — client's @handle if they have one
+                <span class="item-detail">Used in Twitter card meta tags. Set to empty string if they don't use Twitter.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>defaultDescription</code> — 140–155 character homepage meta description
+                <span class="item-detail">Write it as a CTA. Include the primary keyword. Unique per page — this is just the fallback.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm <code>telephone</code>, <code>addressLocality</code>, <code>addressRegion</code> are correct
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm <code>url</code> exactly matches the production domain (no trailing slash, HTTPS)
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">public/robots.txt</div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm the <code>Sitemap:</code> line points to the real domain, not <code>TODO.com</code>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">public/sitemap.xml</div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add all pages that exist so far (homepage at minimum)
+                <span class="item-detail">If you're using the <code>@astrojs/sitemap</code> integration, this is auto-generated — skip the manual file.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm all <code>&lt;loc&gt;</code> URLs use the production domain and HTTPS
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">src/lib/email.config.ts</div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm the <code>notify</code> email address is correct — this is where form leads land
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Update email copy in <code>confirmBody</code> if the default template text needs changing
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">6</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Set up integrations</div>
+        <div class="section-subtitle">Resend email, GA4, Mailchimp</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-manual">Manual</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        Forms won't send without Resend configured. GA4 won't track without a measurement ID. These are set as environment variables — they live in <code>.env</code> locally and in Vercel's environment settings for production.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Resend (email delivery) <span class="tag tag-critical">Required</span></div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add the client's domain in <a href="https://resend.com/domains" target="_blank">Resend → Domains</a>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add the DNS records Resend provides to the client's DNS (MX, TXT, CNAME)
+                <span class="item-detail">Takes 5–30 min to verify. Don't skip this — emails will be rejected or land in spam without it.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Copy the Resend API key (<code>re_...</code>) into <code>.env</code> as <code>RESEND_API_KEY</code>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Google Analytics 4 <span class="tag tag-optional">Optional</span></div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Create a GA4 property for the client domain
+                <span class="item-detail">Get the Measurement ID — format: <code>G-XXXXXXXXXX</code></span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add <code>GA_MEASUREMENT_ID=G-XXXXXXXXXX</code> to <code>.env</code>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Mailchimp <span class="tag tag-optional">Only if client uses it</span></div>
+        <ul class="checklist" data-phase="3">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add <code>MAILCHIMP_API_KEY</code>, <code>MAILCHIMP_SERVER_PREFIX</code>, <code>MAILCHIMP_AUDIENCE_ID</code> to <code>.env</code>
+                <span class="item-detail">If the client doesn't use Mailchimp, delete these 3 lines from the .env and email.config.ts.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PHASE 4 — SEO REVIEW
+  ══════════════════════════════════════ -->
+  <div class="divider-label">Phase 4 — SEO Review</div>
+
+  <div class="section" id="sec4">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">7</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Build and review SEO output</div>
+        <div class="section-subtitle">Check title, description, canonical, schema before going live</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-verify">Verify</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        Viewing source confirms the actual HTML that search engines will see. Catching broken schema or wrong canonical URLs here is free — catching them after launch costs you indexing time.
+      </div>
+
+      <div class="sub-section terminal-path">
+        <div class="sub-title">Build and preview locally</div>
+        <ul class="checklist" data-phase="4">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Run <code>npm run build</code> — confirm it exits with zero errors
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Run <code>npm run preview</code> and open <code>localhost:4321</code> in browser
+              </span>
+            </label>
+          </li>
+        </ul>
+        <div class="code-block">npm run build && npm run preview</div>
+      </div>
+
+      <div class="sub-section noterminal-path">
+        <div class="sub-title">Use Vercel preview deploy instead</div>
+        <div class="alt-box">
+          <strong>No Terminal — push to GitHub, check the Vercel preview URL</strong>
+          Commit and push your changes to GitHub (GitHub Desktop: commit → Push Origin). Vercel automatically builds and gives you a unique preview URL (e.g. <code>clientname-site-abc123.vercel.app</code>). Use that URL for all the checks below — right-click → View Page Source in your browser.
+        </div>
+        <ul class="checklist" data-phase="4">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Commit and push to GitHub — Vercel will build automatically
+                <span class="item-detail">In GitHub Desktop: type a commit message → Commit to main → Push Origin</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Open the Vercel preview URL from the deployment dashboard
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">View source checks — homepage</div>
+        <ul class="checklist" data-phase="4">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>&lt;title&gt;</code> — correct client name, includes primary keyword, 50–60 chars
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>&lt;meta name="description"&gt;</code> — unique, 140–155 chars, keyword included
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>&lt;link rel="canonical"&gt;</code> — matches production domain exactly (HTTPS, no trailing slash mismatch)
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>og:image</code> — points to the real OG image URL, not a TODO placeholder
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                JSON-LD schema block is present — search for <code>application/ld+json</code> in source
+                <span class="item-detail">Should see Organization or ProfessionalService schema on every page.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Schema validation</div>
+        <ul class="checklist" data-phase="4">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Copy the JSON-LD from view source and paste into <a href="https://validator.schema.org" target="_blank">validator.schema.org</a> — confirm no errors
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Run the built homepage URL through <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a> (once deployed to a preview URL)
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">OG / social card preview</div>
+        <ul class="checklist" data-phase="4">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Check OG card at <a href="https://www.opengraph.xyz" target="_blank">opengraph.xyz</a> (use the preview URL or staging URL)
+                <span class="item-detail">Confirms the image actually loads and isn't broken. Check dimensions look right.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Per-page SEO (each new page you build)</div>
+        <ul class="checklist" data-phase="4">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Unique <code>&lt;title&gt;</code> with primary keyword on each page, 50–60 chars
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Unique <code>&lt;meta description&gt;</code> on each page, 140–155 chars
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Service pages have <code>serviceSchema</code> + <code>breadcrumbSchema</code>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                FAQ sections export their Q&A array so schema stays in sync with on-page text
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                New pages added to <code>sitemap.xml</code> (or confirm auto-generation is on)
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       PHASE 5 — LAUNCH
+  ══════════════════════════════════════ -->
+  <div class="divider-label">Phase 5 — Launch</div>
+
+  <div class="section" id="sec5">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">8</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Deploy to Vercel</div>
+        <div class="section-subtitle">Connect repo, add env vars, set production domain</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-launch">Launch</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        Vercel needs the same environment variables as your local <code>.env</code> — they don't sync automatically. The <code>PUBLIC_ENV=production</code> flag enables production-only behavior (e.g. GA tracking). The domain must be added here for the canonical URLs to resolve correctly.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Initial Vercel setup</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Push the repo to GitHub if you haven't already
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                In Vercel, click <strong>Add New Project</strong> → import from GitHub → select the repo
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Framework preset: Astro — should auto-detect
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Environment variables — add all of these in Vercel</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>RESEND_API_KEY</code> <span class="tag tag-critical">Required</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>INTERNAL_NOTIFY_EMAIL</code> <span class="tag tag-critical">Required</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>PUBLIC_ENV=production</code> <span class="tag tag-critical">Required — set this on the production project</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>GA_MEASUREMENT_ID</code> <span class="tag tag-optional">If using GA4</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                <code>MAILCHIMP_API_KEY</code>, <code>MAILCHIMP_SERVER_PREFIX</code>, <code>MAILCHIMP_AUDIENCE_ID</code> <span class="tag tag-optional">If using Mailchimp</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+        <div class="tip"><strong>Tip:</strong> Copy values from your local <code>.env</code> — they're all in there from the kickoff script.</div>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Custom domain</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                In Vercel → Project → Settings → Domains → add the production domain
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add the DNS records Vercel shows to the client's DNS provider
+                <span class="item-detail">Usually an A record or CNAME. DNS propagation can take up to 24 hours, usually under 30 min.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm SSL certificate is issued (Vercel handles this automatically once DNS resolves)
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm www → non-www redirect (or vice versa) is configured
+                <span class="item-detail">Vercel handles this in the Domains panel — add both variants and set one as the primary.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <div class="section-num">9</div>
+      <div class="section-title-wrap">
+        <div class="section-title">Post-launch verification</div>
+        <div class="section-subtitle">Confirm everything works on the live domain before handing off</div>
+      </div>
+      <div class="section-meta">
+        <span class="section-badge badge-verify">Verify</span>
+        <span class="chevron">▶</span>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="why-box">
+        <strong>Why this step</strong>
+        Things that work locally can break in production — particularly CSRF form protection, environment variables, and canonical URLs. This is the final check before you call it live.
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Core functionality</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Homepage loads at the production domain over HTTPS
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Submit the contact form — confirm lead email arrives at <code>INTERNAL_NOTIFY_EMAIL</code>
+                <span class="item-detail">If forms 404 or fail silently, check that <code>security.checkOrigin</code> is handled in your Astro config for the production domain.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Confirm the confirmation email arrives in the submitter's inbox (not spam)
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">SEO on live domain</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Run <a href="https://search.google.com/test/rich-results" target="_blank">Google Rich Results Test</a> on the live homepage URL
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Preview the live URL at <a href="https://www.opengraph.xyz" target="_blank">opengraph.xyz</a>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Verify <code>/robots.txt</code> loads and shows the correct domain in the Sitemap line
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Verify <code>/sitemap.xml</code> loads and shows production URLs
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Google Search Console</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Add the property in Google Search Console and verify ownership
+                <span class="item-detail">Easiest method: HTML tag verification (add to BaseLayout.astro), or DNS TXT record.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Submit the sitemap URL in Search Console → Sitemaps
+                <span class="item-detail">Usually <code>https://clientdomain.com/sitemap.xml</code> or <code>/sitemap-index.xml</code> if using the Astro integration.</span>
+              </span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Request indexing on the homepage via URL Inspection tool
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-title">Open the Launch Readiness Checker</div>
+        <ul class="checklist" data-phase="5">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span class="item-text">
+                Open <code>_build/[slug]_launch_readiness.html</code> and work through any remaining issues flagged there
+                <span class="item-detail">The launch checker was generated by the kickoff script and contains client-specific findings from Ahrefs backlink data and the Screaming Frog crawl.</span>
+              </span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Done banner -->
+  <div class="done-banner" id="done-banner">
+    🎉 All tasks complete — this site is ready to launch!
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ── Mode toggle (terminal / no-terminal) ──────────────────────────────────────
+  function setMode(mode) {
+    const isNoTerminal = mode === 'noterminal';
+    document.body.classList.toggle('no-terminal', isNoTerminal);
+    document.getElementById('btn-terminal').classList.toggle('active', !isNoTerminal);
+    document.getElementById('btn-noterminal').classList.toggle('active', isNoTerminal);
+    localStorage.setItem('agp-launch-mode', mode);
+  }
+
+  // ── Toggle accordion ──────────────────────────────────────────────────────────
+  function toggleSection(header) {
+    const section = header.closest('.section');
+    section.classList.toggle('open');
+  }
+
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Open it if not already open
+    el.classList.add('open');
+  }
+
+  // ── Checkbox persistence & progress ──────────────────────────────────────────
+  const STORAGE_KEY = 'agp-launch-guide-checks';
+
+  function getChecks() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch { return {}; }
+  }
+
+  function saveChecks(checks) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(checks));
+  }
+
+  function getCheckId(cb) {
+    // Build a stable ID from checkbox text
+    const label = cb.closest('label');
+    const text = label ? label.innerText.slice(0, 60).trim() : '';
+    return text.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+  }
+
+  function updateProgress() {
+    const all = document.querySelectorAll('.checklist input[type="checkbox"]');
+    const done = document.querySelectorAll('.checklist input[type="checkbox"]:checked');
+    const pct = all.length ? Math.round((done.length / all.length) * 100) : 0;
+
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-text').textContent = `${done.length} / ${all.length} tasks`;
+
+    // Phase pills
+    const phases = [1, 2, 3, 4, 5];
+    phases.forEach(p => {
+      const phaseCBs = document.querySelectorAll(`[data-phase="${p}"] input[type="checkbox"]`);
+      const phaseDone = document.querySelectorAll(`[data-phase="${p}"] input[type="checkbox"]:checked`);
+      const pill = document.getElementById(`ph${p}-count`);
+      if (pill) pill.textContent = `${phaseDone.length}/${phaseCBs.length}`;
+
+      const pillEl = document.querySelectorAll('.phase-pill')[p - 1];
+      if (pillEl) {
+        if (phaseCBs.length > 0 && phaseDone.length === phaseCBs.length) {
+          pillEl.classList.add('done');
+          pillEl.classList.remove('active');
+        } else if (phaseDone.length > 0) {
+          pillEl.classList.add('active');
+          pillEl.classList.remove('done');
+        } else {
+          pillEl.classList.remove('done', 'active');
+        }
+      }
+    });
+
+    // Section done state
+    document.querySelectorAll('.section').forEach(sec => {
+      const sCBs = sec.querySelectorAll('.checklist input[type="checkbox"]');
+      const sDone = sec.querySelectorAll('.checklist input[type="checkbox"]:checked');
+      if (sCBs.length > 0 && sDone.length === sCBs.length) {
+        sec.classList.add('done');
+      } else {
+        sec.classList.remove('done');
+      }
+    });
+
+    // Done banner
+    document.getElementById('done-banner').style.display =
+      (all.length > 0 && done.length === all.length) ? 'block' : 'none';
+  }
+
+  function initChecks() {
+    const saved = getChecks();
+    document.querySelectorAll('.checklist input[type="checkbox"]').forEach(cb => {
+      const id = getCheckId(cb);
+      if (saved[id]) {
+        cb.checked = true;
+        cb.closest('li').classList.add('checked');
+      }
+      cb.addEventListener('change', () => {
+        const checks = getChecks();
+        checks[getCheckId(cb)] = cb.checked;
+        saveChecks(checks);
+        if (cb.checked) {
+          cb.closest('li').classList.add('checked');
+        } else {
+          cb.closest('li').classList.remove('checked');
+        }
+        updateProgress();
+      });
+    });
+    updateProgress();
+  }
+
+  // Open the first incomplete section by default on load
+  function openFirstIncomplete() {
+    const sections = document.querySelectorAll('.section');
+    for (const sec of sections) {
+      const cbs = sec.querySelectorAll('.checklist input[type="checkbox"]');
+      const unchecked = sec.querySelectorAll('.checklist input[type="checkbox"]:not(:checked)');
+      if (cbs.length > 0 && unchecked.length > 0) {
+        sec.classList.add('open');
+        break;
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Restore mode preference
+    const savedMode = localStorage.getItem('agp-launch-mode') || 'terminal';
+    setMode(savedMode);
+
+    initChecks();
+    openFirstIncomplete();
+  });
+</script>
+</body>
+</html>
