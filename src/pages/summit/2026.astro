@@ -1,0 +1,662 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const html = `<style>
+    body { background: var(--innovia-navy); color: rgba(255,255,255,0.78); }
+    .site-header {
+      background: rgba(15,36,71,0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .site-header nav > a { color: rgba(255,255,255,0.7); }
+    .site-header nav > a:hover, .site-header nav > a.active { color: #fff; }
+    .site-header .btn-navy { background: #fff; color: var(--innovia-navy); }
+    .site-header .btn-navy:hover { background: var(--innovia-green); }
+
+    /* ---------- Summit hero ---------- */
+    .summit-hero {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 40px 0 96px;
+    }
+    .summit-hero .bg { position: absolute; inset: 0; z-index: -2; }
+    .summit-hero .bg img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.92);
+    }
+    .summit-hero .bg::after {
+      content: ""; position: absolute; inset: 0;
+      background:
+        linear-gradient(105deg, rgba(15,36,71,0.92) 0%, rgba(15,36,71,0.45) 65%, rgba(15,36,71,0.62) 100%),
+        linear-gradient(180deg, transparent 50%, rgba(15,36,71,0.6) 100%);
+    }
+    .summit-hero .crumb {
+      display: flex; gap: 10px; align-items: center;
+      font-family: var(--font-mono); font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      margin-bottom: 64px;
+    }
+    .summit-hero .crumb a:hover { color: #fff; }
+    .summit-hero .summit-mark {
+      font-family: var(--font-summit);
+      font-weight: 700;
+      font-size: clamp(56px, 8vw, 132px);
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .summit-hero .summit-mark .yr {
+      color: var(--innovia-green);
+    }
+    .summit-hero .boat {
+      margin: 24px 0 32px;
+      width: 64px; height: 36px;
+    }
+    .summit-hero .row {
+      display: grid; grid-template-columns: 1.4fr 1fr;
+      gap: 80px; align-items: end;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .summit-hero .row p {
+      font-size: clamp(17px, 1.4vw, 20px);
+      line-height: 1.55;
+      color: rgba(255,255,255,0.82);
+      max-width: 52ch;
+      margin: 0;
+    }
+    .summit-hero .row .meta {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .summit-hero .row .meta > div {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .summit-hero .row .meta .k {
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .summit-hero .row .meta .v {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 16px; color: #fff;
+      letter-spacing: -0.005em;
+    }
+
+    /* ---------- Editorial recap intro ---------- */
+    .recap-intro {
+      padding: 120px 0;
+      background: #FBFAF6;
+      color: var(--fg-2);
+    }
+    .recap-intro .layout {
+      display: grid; grid-template-columns: 1fr 1.5fr;
+      gap: 96px;
+      align-items: start;
+    }
+    .recap-intro h2 {
+      color: var(--innovia-navy);
+      font-size: clamp(34px, 4vw, 56px);
+      letter-spacing: -0.026em;
+      margin: 14px 0 0;
+      max-width: 14ch;
+    }
+    .recap-intro .body p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--fg-2);
+      margin: 0 0 18px;
+    }
+    .recap-intro .body p:first-child::first-letter {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 88px;
+      float: left;
+      line-height: 0.78;
+      margin: 8px 14px 0 0;
+      color: var(--innovia-navy);
+    }
+    .recap-intro .body .pull {
+      font-family: var(--font-display); font-weight: 500;
+      font-size: clamp(24px, 2.2vw, 30px);
+      line-height: 1.35;
+      letter-spacing: -0.015em;
+      color: var(--innovia-navy);
+      padding: 24px 0 28px;
+      margin: 28px 0;
+      border-top: 4px solid var(--innovia-green);
+      border-bottom: 1px solid var(--border-subtle);
+      max-width: 36ch;
+    }
+
+    /* ---------- Agenda ---------- */
+    .agenda {
+      padding: 120px 0;
+      background: var(--innovia-navy);
+    }
+    .agenda .head {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 64px; align-items: end;
+      margin-bottom: 64px;
+    }
+    .agenda h2 { color: #fff; }
+    .agenda .head p { color: rgba(255,255,255,0.74); font-size: 17px; line-height: 1.6; }
+    .agenda .days {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 2px solid var(--innovia-green);
+    }
+    .agenda .day {
+      padding: 36px 32px 40px;
+      border-right: 1px solid rgba(255,255,255,0.18);
+      display: flex; flex-direction: column;
+      gap: 18px;
+    }
+    .agenda .day:last-child { border-right: 0; }
+    .agenda .day .date {
+      font-family: var(--font-mono); font-size: 12px;
+      color: var(--innovia-green); letter-spacing: 0.06em;
+    }
+    .agenda .day h3 {
+      color: #fff; font-size: 26px;
+      letter-spacing: -0.015em;
+      margin: 0;
+    }
+    .agenda .day p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.74);
+      line-height: 1.55;
+      margin: 0;
+    }
+    .agenda .day .schedule {
+      margin-top: 8px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .agenda .day .item {
+      display: grid; grid-template-columns: 64px 1fr;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      align-items: start;
+    }
+    .agenda .day .item:first-of-type { border-top: 0; }
+    .agenda .day .item .time {
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      padding-top: 2px;
+    }
+    .agenda .day .item .what {
+      font-family: var(--font-display); font-weight: 600;
+      font-size: 14px; color: #fff;
+      letter-spacing: -0.005em;
+      line-height: 1.4;
+    }
+    .agenda .day .item .what small {
+      display: block; font-family: var(--font-body); font-weight: 400;
+      color: rgba(255,255,255,0.6); font-size: 13px;
+      margin-top: 2px;
+    }
+
+    /* ---------- Speaker / session highlights ---------- */
+    .sessions {
+      padding: 120px 0;
+      background: #0c1d3a;
+    }
+    .sessions .head {
+      display: flex; justify-content: space-between; align-items: end;
+      margin-bottom: 56px;
+    }
+    .sessions h2 { color: #fff; }
+    .sessions .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .sessions .session {
+      padding: 36px 32px 40px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .sessions .session + .session { padding-left: 32px; border-left: 1px solid rgba(255,255,255,0.18); }
+    .sessions .session:nth-child(3n+1):not(:first-child) {
+      border-left: 0; padding-left: 0;
+    }
+    .sessions .session .photo {
+      aspect-ratio: 4/3;
+      background: var(--innovia-navy);
+      overflow: hidden;
+    }
+    .sessions .session .photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.92); }
+    .sessions .session .num {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--innovia-green); letter-spacing: 0.06em;
+    }
+    .sessions .session h4 {
+      font-size: 22px; color: #fff;
+      letter-spacing: -0.014em;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .sessions .session p {
+      font-size: 14px; line-height: 1.55;
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+    }
+    .sessions .session .speaker {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ---------- Photo wall ---------- */
+    .photo-wall {
+      padding: 120px 0;
+      background: var(--innovia-navy-deep);
+    }
+    .photo-wall .head {
+      display: flex; justify-content: space-between; align-items: end;
+      margin-bottom: 32px;
+    }
+    .photo-wall h2 { color: #fff; }
+    .photo-wall .count {
+      font-family: var(--font-mono); font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+    }
+    .photo-wall .gallery {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-auto-rows: 160px;
+      gap: 4px;
+    }
+    .photo-wall .gallery figure { margin: 0; overflow: hidden; background: #18335E; position: relative; }
+    .photo-wall .gallery figure img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); transition: transform .6s var(--ease-out); }
+    .photo-wall .gallery figure:hover img { transform: scale(1.04); }
+    .photo-wall .gallery .lg { grid-column: span 4; grid-row: span 2; }
+    .photo-wall .gallery .md { grid-column: span 2; grid-row: span 2; }
+    .photo-wall .gallery .wd { grid-column: span 2; }
+    .photo-wall .gallery .tl { grid-row: span 2; }
+    .photo-wall .gallery figcaption {
+      position: absolute; bottom: 10px; left: 12px;
+      font-family: var(--font-mono); font-size: 10px;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.04em;
+    }
+
+    /* ---------- Save the date ---------- */
+    .save-date {
+      padding: 120px 0;
+      background: var(--innovia-green);
+      color: var(--innovia-navy);
+      position: relative; overflow: hidden;
+    }
+    .save-date .frame {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .save-date .summit-mark {
+      font-family: var(--font-summit);
+      font-weight: 700;
+      font-size: clamp(56px, 8vw, 140px);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: var(--innovia-navy);
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .save-date .summit-mark .yr { color: #fff; }
+    .save-date .copy h2 {
+      color: var(--innovia-navy);
+      font-size: clamp(34px, 4vw, 52px);
+      letter-spacing: -0.024em;
+    }
+    .save-date .copy p {
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 20px 0;
+      max-width: 50ch;
+      color: var(--innovia-navy);
+      opacity: 0.85;
+    }
+    .save-date .copy .pulses {
+      display: flex; gap: 28px;
+      padding-top: 20px;
+      border-top: 2px solid var(--innovia-navy);
+      margin-top: 24px;
+    }
+    .save-date .copy .pulses > div {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .save-date .copy .pulses .k {
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--innovia-navy); opacity: 0.65;
+    }
+    .save-date .copy .pulses .v {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 17px; color: var(--innovia-navy);
+    }
+    .save-date .copy .actions {
+      margin-top: 32px;
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .save-date .copy .btn-navy { background: var(--innovia-navy); color: #fff; }
+    .save-date .copy .btn-navy:hover { background: var(--innovia-navy-deep); }
+    .save-date .copy .btn-outline { border-color: var(--innovia-navy); color: var(--innovia-navy); }
+
+    @media (max-width: 1080px) {
+      .summit-hero .row, .recap-intro .layout, .agenda .head, .sessions .head, .save-date .frame { grid-template-columns: 1fr; gap: 32px; }
+      .agenda .days { grid-template-columns: 1fr; }
+      .agenda .day { border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.18); }
+      .sessions .grid { grid-template-columns: 1fr; }
+      .sessions .session + .session { border-left: 0; padding-left: 0; }
+      .photo-wall .gallery { grid-template-columns: repeat(3, 1fr); }
+      .photo-wall .gallery .lg, .photo-wall .gallery .md, .photo-wall .gallery .wd { grid-column: span 3; }
+    }
+  </style>
+
+
+  <!-- HERO -->
+  <section class="summit-hero">
+    <div class="bg" aria-hidden="true">
+      <img src="/assets/photos/reception-rooftop-evening.jpg" alt="">
+    </div>
+    <div class="container">
+      <div class="crumb">
+        <a href="/">Innovia</a><span style="color: rgba(255,255,255,0.3);">/</span><a href="/summit/" style="color: rgba(255,255,255,0.7);">Summit</a><span style="color: rgba(255,255,255,0.3);">/</span><span style="color: #fff">2026 Archive</span>
+        <span style="flex: 1;"></span>
+        <a href="/summit/" style="color: var(--innovia-green); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;">
+          Summit 2027 →
+        </a>
+      </div>
+
+      <!-- Summit sub-brand: boat icon + condensed wordmark -->
+      <svg class="boat" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Boat silhouette -->
+        <path d="M14 38 L106 38 L94 50 L26 50 Z" fill="#fff"/>
+        <path d="M60 12 L60 38 M60 12 L52 38 M60 12 L72 38" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <path d="M52 38 L60 14 L72 38 Z" fill="rgba(149,208,49,0.9)"/>
+        <!-- Wave line below -->
+        <path d="M4 56 Q22 50 40 56 T76 56 T116 56" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+
+      <h1 class="summit-mark">
+        Innovia<br>
+        Summit <span class="yr">2026</span>
+      </h1>
+
+      <div class="row">
+        <p>The Innovia Summit is the closed-door annual convening where the cooperative becomes a single body &mdash; founder-only sessions, candid working groups, and the unhurried hospitality of a yacht-club retreat.</p>
+        <div class="meta">
+          <div><span class="k">Edition</span><span class="v">7th Annual</span></div>
+          <div><span class="k">Venue</span><span class="v">Lido House · Newport Beach</span></div>
+          <div><span class="k">Attendees</span><span class="v placeholder placeholder-inline">[140]</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECAP INTRO -->
+  <section class="recap-intro">
+    <div class="container">
+      <div class="layout">
+        <div>
+          <div class="eyebrow"><span class="num">No. 01</span><span class="rule-mini"></span>2026 Recap</div>
+          <h2>Three days. One cooperative.</h2>
+        </div>
+        <div class="body">
+          <p>
+            The 2026 Summit gathered <span class="placeholder placeholder-inline">[140]</span> member-company founders and senior operators at the Lido House in Newport Beach for three days of working sessions, founder-only conversations, and the kind of unhurried networking that calls and emails can&rsquo;t reproduce.
+          </p>
+          <p>
+            The format is deliberately spare. No vendor booths. No sponsor floors. No tracks of fifty parallel sessions. Just one room, the whole co-op, the topics members raised in the months before, and time to actually work through them. The hospitality &mdash; the rooftop reception, the firepit dinners, the morning runs along the harbor &mdash; is the connective tissue.
+          </p>
+          <p class="pull">
+            &ldquo;No noise. No vendor floors. No filler. Just focused conversation, meaningful connection, and forward momentum.&rdquo;
+          </p>
+          <p>
+            By Tuesday afternoon members were trading new banking terms in the lobby. By Wednesday morning two companies had quietly started a shared talent pipeline. By Thursday night the playbook for next year had already been roughed out at a firepit.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section class="agenda">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="eyebrow on-dark"><span class="num" style="color: rgba(255,255,255,0.5)">No. 02</span><span class="rule-mini"></span>The 2026 program</div>
+          <h2 class="t-h2" style="margin-top: 14px;">A working agenda.</h2>
+        </div>
+        <p>Built from member-submitted topics. Closed-door, Chatham House rules. Everything below is post-event detail; the live agenda is shared with attendees in advance.</p>
+      </div>
+
+      <div class="days">
+        <div class="day">
+          <span class="date">Mon · 28 Apr 2026 · Day 01</span>
+          <h3>The work of the cooperative</h3>
+          <p>What members are doing for the communities they serve, and how the cooperative supports it: peer councils, the vendor program, shared intelligence.</p>
+          <div class="schedule">
+            <div class="item">
+              <span class="time">09:30</span>
+              <span class="what">Opening · State of the cooperative <small>Co-op leadership · main ballroom</small></span>
+            </div>
+            <div class="item">
+              <span class="time">11:00</span>
+              <span class="what">Banking &amp; treasury working session <small>Member panel · banking partners present</small></span>
+            </div>
+            <div class="item">
+              <span class="time">14:00</span>
+              <span class="what">Margin benchmarking, region by region <small>Closed door · founders only</small></span>
+            </div>
+            <div class="item">
+              <span class="time">19:00</span>
+              <span class="what">Rooftop welcome reception <small>Open to all attendees and partners</small></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="day">
+          <span class="date">Tue · 29 Apr 2026 · Day 02</span>
+          <h3>People &amp; Practice</h3>
+          <p>The Cinderella roles get the room. Manager development, accounting talent, facility leads &mdash; the seats most independents are losing.</p>
+          <div class="schedule">
+            <div class="item">
+              <span class="time">09:00</span>
+              <span class="what">Keynote · The Cinderella roles <small>Marty Stowe, strategic partner</small></span>
+            </div>
+            <div class="item">
+              <span class="time">10:30</span>
+              <span class="what">Manager retention &amp; development cohort <small>Breakout · cupola room</small></span>
+            </div>
+            <div class="item">
+              <span class="time">14:00</span>
+              <span class="what">AI &amp; the back office <small>Vendor working session · software partners</small></span>
+            </div>
+            <div class="item">
+              <span class="time">19:00</span>
+              <span class="what">Firepit dinners · founder small groups <small>Reservations sent at check-in</small></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="day">
+          <span class="date">Wed · 30 Apr 2026 · Day 03</span>
+          <h3>Strategy &amp; the Long View</h3>
+          <p>Independence in an age of acquisition. How members are using the cooperative to stay ahead of the PE roll-up &mdash; and to grow without it.</p>
+          <div class="schedule">
+            <div class="item">
+              <span class="time">09:00</span>
+              <span class="what">Founder fireside · staying independent <small>Closed-door · two founders</small></span>
+            </div>
+            <div class="item">
+              <span class="time">11:00</span>
+              <span class="what">Lead-gen engine &amp; KPI benchmarks <small>Co-op working group</small></span>
+            </div>
+            <div class="item">
+              <span class="time">14:00</span>
+              <span class="what">Co-op governance &amp; 2027 plan <small>Member vote · all companies</small></span>
+            </div>
+            <div class="item">
+              <span class="time">17:00</span>
+              <span class="what">Closing remarks &amp; rooftop send-off <small>The whole co-op, the last hour</small></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSIONS -->
+  <section class="sessions">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="eyebrow on-dark"><span class="num" style="color: rgba(255,255,255,0.5)">No. 03</span><span class="rule-mini"></span>Session highlights</div>
+          <h2 class="t-h2" style="margin-top: 14px;">Six sessions that landed.</h2>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="session">
+          <div class="photo"><img src="/assets/photos/speaker-finance.jpg" alt=""></div>
+          <span class="num">S · 01 · Day 01</span>
+          <h4>The line-item math nationals don&rsquo;t want you to see</h4>
+          <p>A blunt walkthrough of the banking, software, and insurance spreads between cooperative-rate and retail.</p>
+          <div class="speaker">Founder panel · <span class="placeholder placeholder-inline">[Names]</span></div>
+        </article>
+        <article class="session">
+          <div class="photo"><img src="/assets/photos/panel-discussion.jpg" alt=""></div>
+          <span class="num">S · 02 · Day 01</span>
+          <h4>Banking that understands HOA reserves</h4>
+          <p>Member-rate operating and reserve account terms, and what to look for in a CAM-fluent partner.</p>
+          <div class="speaker">Vendor working session</div>
+        </article>
+        <article class="session">
+          <div class="photo"><img src="/assets/photos/audience-listening.jpg" alt=""></div>
+          <span class="num">S · 03 · Day 02</span>
+          <h4>The Cinderella roles</h4>
+          <p>Manager retention, accounting development, facility-lead cohorts &mdash; the program that started here in 2025.</p>
+          <div class="speaker">Marty Stowe · keynote</div>
+        </article>
+        <article class="session">
+          <div class="photo"><img src="/assets/photos/roundtable-discussion.jpg" alt=""></div>
+          <span class="num">S · 04 · Day 02</span>
+          <h4>AI in the back office, used carefully</h4>
+          <p>A practitioner&rsquo;s view of what AI is actually doing inside member companies &mdash; and what&rsquo;s still hand-rolled.</p>
+          <div class="speaker">Software partner working group</div>
+        </article>
+        <article class="session">
+          <div class="photo"><img src="/assets/photos/speaker-rocket-launch.jpg" alt=""></div>
+          <span class="num">S · 05 · Day 03</span>
+          <h4>Staying independent in the age of the roll-up</h4>
+          <p>Two founders talk through the offers they&rsquo;ve turned down and the math that made it possible.</p>
+          <div class="speaker">Founder fireside</div>
+        </article>
+        <article class="session">
+          <div class="photo"><img src="/assets/photos/working-session.jpg" alt=""></div>
+          <span class="num">S · 06 · Day 03</span>
+          <h4>The 2027 cooperative plan</h4>
+          <p>The five things the membership voted onto the calendar before the rooftop sent off the last attendees.</p>
+          <div class="speaker">Member governance · whole co-op</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO WALL -->
+  <section class="photo-wall">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="eyebrow on-dark"><span class="num" style="color: rgba(255,255,255,0.5)">No. 04</span><span class="rule-mini"></span>From the floor</div>
+          <h2 class="t-h2" style="margin-top: 14px;">2026 in photographs.</h2>
+        </div>
+        <span class="count">18 images · Photography &copy; Innovia Summit 2026</span>
+      </div>
+
+      <div class="gallery">
+        <figure class="lg"><img src="/assets/photos/reception-rooftop-evening.jpg" alt=""><figcaption>Pl. 01 · Rooftop welcome reception</figcaption></figure>
+        <figure class="md"><img src="/assets/photos/lido-house-exterior.jpg" alt=""><figcaption>Pl. 02 · Lido House</figcaption></figure>
+        <figure class="md"><img src="/assets/photos/summit-signage.jpg" alt=""><figcaption>Pl. 03 · Summit signage</figcaption></figure>
+
+        <figure><img src="/assets/photos/panel-discussion.jpg" alt=""><figcaption>Pl. 04</figcaption></figure>
+        <figure><img src="/assets/photos/roundtable-discussion.jpg" alt=""><figcaption>Pl. 05</figcaption></figure>
+        <figure><img src="/assets/photos/working-session.jpg" alt=""><figcaption>Pl. 06</figcaption></figure>
+        <figure><img src="/assets/photos/member-introductions.jpg" alt=""><figcaption>Pl. 07</figcaption></figure>
+        <figure><img src="/assets/photos/breakout-cupola-room.jpg" alt=""><figcaption>Pl. 08 · Cupola breakout</figcaption></figure>
+        <figure><img src="/assets/photos/speaker-finance.jpg" alt=""><figcaption>Pl. 09 · Member panel</figcaption></figure>
+        <figure><img src="/assets/photos/audience-listening.jpg" alt=""><figcaption>Pl. 10</figcaption></figure>
+        <figure><img src="/assets/photos/speaker-breakouts.jpg" alt=""><figcaption>Pl. 11</figcaption></figure>
+        <figure><img src="/assets/photos/speaker-rocket-launch.jpg" alt=""><figcaption>Pl. 12 · Keynote</figcaption></figure>
+
+        <figure class="wd"><img src="/assets/photos/applause-engaged.jpg" alt=""><figcaption>Pl. 13</figcaption></figure>
+        <figure class="md"><img src="/assets/photos/lobby-arrival.jpg" alt=""><figcaption>Pl. 14 · Arrival</figcaption></figure>
+        <figure><img src="/assets/photos/ballroom-walking-bw.jpg" alt=""><figcaption>Pl. 15</figcaption></figure>
+        <figure><img src="/assets/photos/rooftop-deck-day.jpg" alt=""><figcaption>Pl. 16</figcaption></figure>
+        <figure><img src="/assets/photos/dinner-firepit.jpg" alt=""><figcaption>Pl. 17 · Firepit dinner</figcaption></figure>
+        <figure><img src="/assets/photos/reception-firepit-night.jpg" alt=""><figcaption>Pl. 18 · Firepit, evening</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAVE THE DATE -->
+  <section class="save-date" id="invite">
+    <div class="container">
+      <div class="frame">
+        <div>
+          <span class="eyebrow" style="color: var(--innovia-navy); opacity: 0.6;"><span class="num" style="color: var(--innovia-navy); opacity: 0.6;">No. 05</span><span class="rule-mini"></span>Save the date</span>
+          <h1 class="summit-mark" style="margin-top: 18px;">Innovia<br>Summit <span class="yr">2027</span></h1>
+        </div>
+        <div class="copy">
+          <h2>Next spring. Same coastline. Larger room.</h2>
+          <p>2027 returns to Newport Beach with an expanded program for the Cinderella cohorts and a member-led governance day. Attendance is by invitation through a member company.</p>
+          <div class="pulses">
+            <div><span class="k">Dates</span><span class="v placeholder placeholder-inline">Apr 27–29, 2027</span></div>
+            <div><span class="k">Venue</span><span class="v">Lido House · Newport Beach</span></div>
+            <div><span class="k">Format</span><span class="v">3 days · closed-door</span></div>
+          </div>
+          <div class="actions">
+            <a href="/summit/#notify" class="btn btn-navy">
+              Request an Invite
+              <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+            <a href="/for-cams/why-innovia/" class="btn btn-outline">Members request an invite &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  
+
+
+  
+`;
+---
+<BaseLayout
+  title="Innovia Summit 2026 · Archive · Innovia Co-op"
+  description="Innovia Summit 2026 · Archive · Innovia Co-op"
+  ogImage="/assets/og/option-1-type-led.png"
+  headerVariant="inverse"
+  activeNav="summit"
+  ctaLabel="Request an Invite"
+  ctaHref="#invite"
+>
+  <Fragment set:html={html} />
+</BaseLayout>

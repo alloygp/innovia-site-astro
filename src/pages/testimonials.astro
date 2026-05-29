@@ -1,0 +1,293 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/testimonials.css';
+const html = `
+
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="crumb">
+        <a href="/">Innovia</a>
+        <span>/</span>
+        <span style="color:#fff;">Testimonials</span>
+        <div class="right">
+          <span class="dot"></span>
+          <span class="placeholder placeholder-inline">[#]</span>&nbsp; voices on record &middot; 22 Summit films in production
+        </div>
+      </div>
+
+      <div class="title-row">
+        <h1>
+          What members <em>actually say</em> when the recorder is on.
+        </h1>
+        <div class="meta-stack">
+          <p>Every quote is attributed. Every name is real. We don&rsquo;t run paraphrases past a marketing team. If you want the unredacted version of how operators describe the co-op, it&rsquo;s here.</p>
+          <div class="pub">Testimonials &middot; Member Voices</div>
+        </div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="filter-band">
+        <div class="row">
+          <span class="label">Voice</span>
+          <div class="pills">
+            <button class="pill active">All <span class="ct placeholder placeholder-inline">[24]</span></button>
+            <button class="pill">CAM owners <span class="ct placeholder placeholder-inline">[14]</span></button>
+            <button class="pill">Senior operators <span class="ct placeholder placeholder-inline">[6]</span></button>
+            <button class="pill">Board members <span class="ct placeholder placeholder-inline">[3]</span></button>
+            <button class="pill">Vendor partners <span class="ct placeholder placeholder-inline">[1]</span></button>
+          </div>
+        </div>
+        <div class="row">
+          <span class="label">Topic</span>
+          <div class="pills">
+            <button class="pill active">All</button>
+            <button class="pill">The peer council</button>
+            <button class="pill">Vendor program</button>
+            <button class="pill">Business growth</button>
+            <button class="pill">The Summit</button>
+            <button class="pill">Joining Innovia</button>
+            <button class="pill">Day-to-day operations</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED QUOTE -->
+  <section class="featured-quote-section">
+    <div class="container">
+      <article class="featured-quote">
+        <span class="kind"><span class="dot"></span>Featured testimonial &middot; <span class="placeholder placeholder-inline">[YYYY]</span></span>
+        <div class="quote-mark">&ldquo;</div>
+        <blockquote>
+          Joining Innovia didn&rsquo;t make us bigger. It made every Monday morning <em>less lonely.</em> The vendor savings are real &mdash; <span class="placeholder placeholder-inline">[$X]</span> in year one &mdash; but what changed the company was the council. There&rsquo;s a room I can walk into now where the people across the table actually understand what an independent CAM company costs to run.
+        </blockquote>
+        <div class="attrib">
+          <div class="who">
+            <span class="portrait placeholder placeholder-inline">[Photo]</span>
+            <div class="details">
+              <span class="name placeholder placeholder-inline">[Member &mdash; full name]</span>
+              <span class="role placeholder placeholder-inline">[Title]</span>
+              <span class="firm placeholder placeholder-inline">[Member firm name] &middot; [City, State]</span>
+            </div>
+          </div>
+          <div class="recorded">
+            <span class="k">Recorded</span>
+            <span class="v placeholder placeholder-inline">[Summit 2026 &middot; Member Voices session]</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- STAT STRAP -->
+  <section class="stat-strap">
+    <div class="container">
+      <div class="frame">
+        <div class="stat"><span class="v placeholder placeholder-inline">[24]</span><span class="k">Voices on record</span></div>
+        <div class="stat"><span class="v">22</span><span class="k">Summit films in production</span></div>
+        <div class="stat"><span class="v placeholder placeholder-inline">38</span><span class="k">States represented</span></div>
+        <div class="stat"><span class="v placeholder placeholder-inline">80+</span><span class="k">Member firms eligible to be quoted</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL GRID -->
+  <section class="listing">
+    <div class="container">
+      <div class="tcards">
+
+        <article class="tcard">
+          <span class="kind">The peer council</span>
+          <blockquote>The first call I made when we hit a major covenant-enforcement decision wasn&rsquo;t to a lawyer. It was to <em>two members</em> who had already lived it.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard">
+          <span class="kind">Vendor program</span>
+          <blockquote>I cut our banking costs <em>18%</em> in the first six months without changing anything about our operation.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard long">
+          <span class="kind">Business growth</span>
+          <blockquote>The lead routing is what made me a believer. We were spending <span class="placeholder placeholder-inline">[$XX,XXX]</span> a quarter on SEO and getting tire-kickers. The first Innovia lead I closed was an <span class="placeholder placeholder-inline">[800]</span>-unit master association in a county our own marketing had never reached. It paid for the membership in a week.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard">
+          <span class="kind">The Summit</span>
+          <blockquote>Three days, no vendor floor, no podium pitch. I left with <em>seven</em> phone numbers I now use regularly.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard">
+          <span class="kind">Joining Innovia</span>
+          <blockquote>The application took an introduction. The vetting took a year. The pricing terms paid for both within the first quarter.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard board">
+          <span class="kind">Board member</span>
+          <blockquote>I have been on this board for <span class="placeholder placeholder-inline">[#]</span> years. Switching to an Innovia member is the first manager change that hasn&rsquo;t produced a special assessment.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Board member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Association] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard long">
+          <span class="kind">Day-to-day operations</span>
+          <blockquote>People ask me what changed about how we run the firm after we joined. The honest answer is &mdash; not much, on the front line. We still serve the same communities, still write the same engagement letters, still answer the same calls. What changed was <em>the room behind us.</em> When we hit a hard problem, we have a council that has already solved it.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard">
+          <span class="kind">Vendor program</span>
+          <blockquote>Insurance was the unlock for us. Hard-market year, premiums up everywhere &mdash; we came out at <em>-31%</em> on our captive.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="tcard">
+          <span class="kind">The peer council</span>
+          <blockquote>I run a <span class="placeholder placeholder-inline">[$XX]</span>M firm and I&rsquo;m the most junior person in my section of the council. That&rsquo;s exactly what I joined for.</blockquote>
+          <div class="attrib">
+            <span class="initials placeholder placeholder-inline">XX</span>
+            <div class="who">
+              <span class="name placeholder placeholder-inline">[Member &mdash; name]</span>
+              <span class="firm placeholder placeholder-inline">[Firm] &middot; [State]</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMIT FILMS -->
+  <section class="films" id="films">
+    <div class="container">
+      <div class="head">
+        <div>
+          <div class="eyebrow on-dark"><span class="num" style="color: rgba(255,255,255,0.5)">No. 02</span><span class="rule-mini"></span>22 Member Films</div>
+          <h2 style="margin-top: 14px;">In production with <em>Alloy GP.</em></h2>
+        </div>
+        <p>Twenty-two member companies, twenty-two short films. Each is a profile of an independent operator and a conversation about why they joined the cooperative. Rolling out across <strong>2026</strong> and dropping into Member Spotlights and this page as they ship.</p>
+      </div>
+      <div class="film-grid">
+        <article class="film placeholder-tile"><span class="num">01</span><span class="state">Shipped</span><h4 class="placeholder placeholder-inline">[Member firm 01]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
+        <article class="film placeholder-tile"><span class="num">02</span><span class="state">Shipped</span><h4 class="placeholder placeholder-inline">[Member firm 02]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
+        <article class="film placeholder-tile pending"><span class="num">03</span><span class="state">Editing</span><h4 class="placeholder placeholder-inline">[Member firm 03]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
+        <article class="film placeholder-tile pending"><span class="num">04</span><span class="state">Q3 &middot; 2026</span><h4 class="placeholder placeholder-inline">[Member firm 04]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
+        <article class="film placeholder-tile pending"><span class="num">05</span><span class="state">Q3 &middot; 2026</span><h4 class="placeholder placeholder-inline">[Member firm 05]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
+        <article class="film placeholder-tile pending"><span class="num">06</span><span class="state">Q4 &middot; 2026</span><h4 class="placeholder placeholder-inline">[Member firm 06]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
+        <article class="film film-more"><div class="more"><span class="big">+16</span><span class="lbl">more films<br>in production</span></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="methodology">
+    <div class="container">
+      <div class="frame">
+        <div>
+          <div class="eyebrow"><span class="num">No. 03</span><span class="rule-mini"></span>How we collect quotes</div>
+          <h2>Attributed, dated, &amp; <em>approved.</em></h2>
+        </div>
+        <div class="body">
+          <p>Every testimonial on this page was recorded with the member&rsquo;s knowledge and reviewed by the member firm before publication. <strong>No paraphrasing, no composite quotes, no marketing rewrites.</strong> If a quote is here, the person whose name is on it signed off on it.</p>
+          <p>Members can request a quote be removed or updated at any time. The cooperative does not own the words; the members do.</p>
+          <div class="rules">
+            <div class="rule"><span class="k">Rule 01</span><span class="v">Real names. Real firms. No anonymous quotes.</span></div>
+            <div class="rule"><span class="k">Rule 02</span><span class="v">The speaker has final approval before publish.</span></div>
+            <div class="rule"><span class="k">Rule 03</span><span class="v">Every quote is dated and contextualised.</span></div>
+            <div class="rule"><span class="k">Rule 04</span><span class="v">Members can pull their quote at any time.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-finale">
+    <div class="container">
+      <div class="frame">
+        <div>
+          <div class="eyebrow" style="color: var(--innovia-navy); opacity: 0.65;"><span class="num" style="color: var(--innovia-navy);">No. 04</span><span class="rule-mini"></span>Share your voice</div>
+          <h2>Members: <em>on the record</em> when you&rsquo;re ready.</h2>
+          <p class="lead">If you&rsquo;re an Innovia member with something to say about how the co-op has affected your firm &mdash; for better or for worse &mdash; the council wants it on the record. Boards: read the quotes, then talk to the firms behind them.</p>
+        </div>
+        <div class="actions">
+          <a href="/for-cams/why-innovia/#talk" class="btn btn-navy">
+            For members &middot; Submit a quote
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+          <a href="/find-a-management-company/" class="btn btn-outline">For boards &middot; Find the firm behind a quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  
+
+
+  
+`;
+---
+<BaseLayout
+  title="Testimonials &amp; Member Voices · Innovia Co-op"
+  description="Testimonials &amp; Member Voices · Innovia Co-op"
+  ogImage="/assets/og/option-1-type-led.png"
+  ctaLabel="Schedule a Conversation"
+  ctaHref="/schedule-a-conversation/"
+>
+  <Fragment set:html={html} />
+</BaseLayout>

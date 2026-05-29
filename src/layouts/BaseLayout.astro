@@ -1,47 +1,64 @@
 ---
 // src/layouts/BaseLayout.astro
-// Generic root layout — works for any AGP client site.
-// All SEO defaults pulled from src/config/site.ts.
-//
-// Usage (minimal):
-//   <BaseLayout title="Page Title" description="Page description.">
-//     ...page content...
-//   </BaseLayout>
-//
-// Usage (article with custom OG image + schema):
-//   <BaseLayout title="..." description="..." ogType="article" ogImage="/assets/og/article.png" pageSchema={articleSchema}>
-//     ...
-//   </BaseLayout>
+// Root layout for the Innovia Co-op marketing site.
+// Renders <head> SEO, the shared header + mega-menu, and the shared footer.
+// Page-specific <style> can be passed via the "head" slot; page-specific
+// inline scripts via the "scripts" slot.
 
-import '../styles/global.css';
+import '../styles/site.css';
 import { SITE } from '../config/site.ts';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
-  /** <title> tag. Keep ≤ 60 chars. Required. */
+  /** <title> tag. Required. */
   title: string;
-  /** Meta description. Keep 120–160 chars. Required. */
+  /** Meta description. Required. */
   description: string;
-  /** og:type. Default: 'website'. Use 'article' for blog/resource pages. */
+  /** Optional og:title override (defaults to title). */
+  ogTitle?: string;
+  /** Optional og:description override (defaults to description). */
+  ogDescription?: string;
+  /** og:type. Default 'website'. */
   ogType?: 'website' | 'article';
-  /** Per-page OG image path from /public. Default: SITE.defaultOgImage. Must be 1200×630 PNG. */
+  /** Per-page OG image from /public. Default: site default. */
   ogImage?: string;
-  /** robots meta. Omit for normal indexed pages. Use 'noindex,nofollow' for thank-you pages etc. */
+  /** robots meta. Omit for normal indexed pages. */
   robots?: string;
-  /** Page-specific JSON-LD schema. Pass a single object or array. */
+  /** Page-specific JSON-LD schema. */
   pageSchema?: Record<string, unknown> | Record<string, unknown>[];
+
+  // ---- Header props (forwarded to SiteHeader) ----
+  headerVariant?: '' | 'inverse';
+  activeNav?: 'about' | 'cams' | 'boards' | 'summit' | null;
+  headerLogo?: string;
+  headerLogoHeight?: number;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaClass?: string;
 }
 
 const {
   title,
   description,
+  ogTitle,
+  ogDescription,
   ogType = 'website',
   ogImage: ogImageProp,
   robots,
   pageSchema,
+  headerVariant = '',
+  activeNav = null,
+  headerLogo = '/assets/logos/innovia-white-green.png',
+  headerLogoHeight = 38,
+  ctaLabel = 'Schedule a Conversation',
+  ctaHref = '/schedule-a-conversation/',
+  ctaClass = 'btn btn-navy',
 } = Astro.props;
 
+const defaultOg = SITE.defaultOgImage ?? '/assets/og/option-1-type-led.png';
 const canonicalUrl    = new URL(Astro.url.pathname, Astro.site ?? SITE.url).toString();
-const resolvedOgImage = new URL(ogImageProp ?? SITE.defaultOgImage, Astro.site ?? SITE.url).toString();
+const resolvedOgImage = new URL(ogImageProp ?? defaultOg, Astro.site ?? SITE.url).toString();
 
 const orgLd = {
   '@context': 'https://schema.org',
@@ -75,13 +92,14 @@ const gaMeasurementId = import.meta.env.GA_MEASUREMENT_ID;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="icon" type="image/png" href="/assets/innovia-icon.png" />
+    <link rel="apple-touch-icon" href="/assets/innovia-icon.png" />
 
     {robots && <meta name="robots" content={robots} />}
 
     <!-- Open Graph -->
-    <meta property="og:title"       content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title"       content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
     <meta property="og:url"         content={canonicalUrl} />
     <meta property="og:type"        content={ogType} />
     <meta property="og:site_name"   content={SITE.name} />
@@ -95,14 +113,10 @@ const gaMeasurementId = import.meta.env.GA_MEASUREMENT_ID;
     <!-- Twitter / X -->
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:site"        content={SITE.twitterHandle} />
-    <meta name="twitter:title"       content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title"       content={ogTitle ?? title} />
+    <meta name="twitter:description" content={ogDescription ?? description} />
     <meta name="twitter:image"       content={resolvedOgImage} />
     <meta name="twitter:image:alt"   content={SITE.name} />
-
-    <!-- Font preloads — update hrefs to match client's actual font files -->
-    <!-- <link rel="preload" href="/fonts/ClientFont-Regular.woff2" as="font" type="font/woff2" crossorigin /> -->
-    <!-- <link rel="preload" href="/fonts/ClientFont-Bold.woff2" as="font" type="font/woff2" crossorigin /> -->
 
     <!-- JSON-LD: Organization (every page) -->
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
@@ -110,7 +124,10 @@ const gaMeasurementId = import.meta.env.GA_MEASUREMENT_ID;
       <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
     )}
 
-    <!-- Google Analytics: deferred until after page paint to avoid forced reflow -->
+    <!-- Per-page styles / preloads -->
+    <slot name="head" />
+
+    <!-- Google Analytics: deferred until after page paint -->
     {gaMeasurementId && (
       <script is:inline define:vars={{ gaMeasurementId }}>
         window.dataLayer = window.dataLayer || [];
@@ -126,10 +143,224 @@ const gaMeasurementId = import.meta.env.GA_MEASUREMENT_ID;
     )}
   </head>
   <body>
-    <!-- Add your SiteHeader component here -->
-    <main>
-      <slot />
-    </main>
-    <!-- Add your SiteFooter component here -->
+    <SiteHeader
+      variant={headerVariant}
+      active={activeNav}
+      logo={headerLogo}
+      logoHeight={headerLogoHeight}
+      ctaLabel={ctaLabel}
+      ctaHref={ctaHref}
+      ctaClass={ctaClass}
+    />
+
+    <slot />
+
+    <SiteFooter />
+
+    <!-- Header behaviors + mega menu (ported from shared/header.js) -->
+    <script is:inline>
+      (function () {
+        const header = document.querySelector(".site-header");
+        if (header) {
+          let lastY = window.scrollY;
+          let ticking = false;
+          const THRESHOLD = 120;
+          const DELTA = 4;
+          function updateScroll() {
+            const y = window.scrollY;
+            const diff = y - lastY;
+            if (Math.abs(diff) < DELTA) { ticking = false; return; }
+            if (y < THRESHOLD) {
+              header.classList.remove("is-hidden");
+            } else if (diff > 0) {
+              header.classList.add("is-hidden");
+              closeAllMega();
+            } else {
+              header.classList.remove("is-hidden");
+            }
+            lastY = y;
+            ticking = false;
+          }
+          window.addEventListener("scroll", () => {
+            if (!ticking) { requestAnimationFrame(updateScroll); ticking = true; }
+          }, { passive: true });
+        }
+
+        const MEGA = {
+          boards: {
+            eyebrow: "For HOA & Condo Boards",
+            title: "Looking for management? We’ll route you to the right Innovia member.",
+            image: "/assets/photos/working-session.jpg",
+            imageCaption: "Pl. 01 · Cooperative working session, Summit 2026",
+            footnote: "Free for board members · no account required",
+            cta: { label: "Send the inquiry", href: "/find-a-management-company/#request" },
+            items: [
+              { icon: 'map-pin', title: 'Find a Management Company', desc: 'Tell us about your community and we’ll route the inquiry to the Innovia-backed company best positioned to serve you. One match. No call lists.', href: '/find-a-management-company/' },
+              { icon: 'building', title: 'HOA Management Services', desc: 'What Innovia-backed companies deliver to associations — by property type. Single-family, condo, townhome, plus accounting and covenant sub-services.', href: '/hoa-management-services/' },
+              { icon: 'book-open', title: 'Board Resources & Guides', desc: 'Cooperatively-authored guides for boards: choosing a manager, reserves, RFPs, governance. Migrating from the old blog.', href: '/board-education/' },
+            ],
+          },
+          cams: {
+            eyebrow: "For Community Management Companies",
+            title: "Independent companies. Stronger together.",
+            image: "/assets/photos/member-introductions.jpg",
+            imageCaption: "Pl. 02 · Member introductions, Summit 2026",
+            footnote: "Membership by introduction · confidential",
+            cta: { label: "Schedule a Conversation", href: "/schedule-a-conversation/" },
+            columns: [
+              {
+                heading: 'Membership',
+                items: [
+                  { icon: 'users-round', title: 'Why Innovia for your company', desc: 'A peer council, a shared vendor program, and industry intelligence — in service of every level of your operation.', href: '/for-cams/why-innovia/' },
+                  { icon: 'building', title: 'Member Spotlights', desc: 'Operators in action — eight member-company profiles and the 22 summit films producing across 2026.', href: '/member-spotlights/' },
+                  { icon: 'anchor', title: 'The Annual Summit', desc: 'Three days. The whole cooperative in one room — closed-door, no vendor floor. Summit 2027 in February.', href: '/summit/' },
+                ],
+              },
+              {
+                heading: 'The Three Pillars',
+                items: [
+                  { icon: 'trophy', title: 'Elite Community', desc: 'An invitation-only circle of the country’s best independent operators.', href: '/for-cams/three-pillars/elite-community/' },
+                  { icon: 'trending-up', title: 'Business Growth', desc: 'A national SEO and content engine routes qualified board leads to the closest member.', href: '/for-cams/three-pillars/business-growth/' },
+                  { icon: 'handshake', title: 'Vendor Program', desc: 'Pre-negotiated agreements with vetted partners across the line items every CAM company runs.', href: '/for-cams/three-pillars/vendor-program/' },
+                ],
+              },
+            ],
+          },
+        };
+
+        const ICONS = {
+          'map-pin': '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+          'building': '<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/>',
+          'book-open': '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+          'users-round': '<path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/>',
+          'layers': '<path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>',
+          'anchor': '<circle cx="12" cy="5" r="3"/><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/>',
+          'trophy': '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+          'trending-up': '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+          'handshake': '<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>',
+        };
+
+        function svg(name) {
+          return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[name] || '') + '</svg>';
+        }
+
+        function renderItem(item) {
+          return '<a class="item" href="' + item.href + '">' +
+            '<span class="icon">' + svg(item.icon) + '</span>' +
+            '<span class="text"><h5>' + item.title + '</h5><p>' + item.desc + '</p></span>' +
+            '<span class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>' +
+            '</a>';
+        }
+
+        function buildPanel(key) {
+          const data = MEGA[key];
+          if (!data) return null;
+          const panel = document.createElement('div');
+          panel.className = 'mega-panel';
+          panel.dataset.mega = key;
+          let itemsHtml;
+          if (data.columns) {
+            itemsHtml = '<div class="columns">' + data.columns.map(function (col) {
+              return '<div class="col"><h6 class="col-heading">' + col.heading + '</h6><div class="items">' + col.items.map(renderItem).join('') + '</div></div>';
+            }).join('') + '</div>';
+          } else {
+            itemsHtml = '<div class="items">' + data.items.map(renderItem).join('') + '</div>';
+          }
+          panel.innerHTML =
+            '<div class="layout">' +
+              '<div class="image"><img src="' + data.image + '" alt=""><div class="image-shade"></div>' +
+                '<div class="image-meta"><div class="image-eyebrow">' + data.eyebrow + '</div>' +
+                '<div class="image-title">' + data.title + '</div>' +
+                '<div class="image-caption">' + data.imageCaption + '</div></div></div>' +
+              '<div class="right">' + itemsHtml +
+                '<div class="footnote"><span class="dot"></span><span class="footnote-text">' + data.footnote + '</span>' +
+                (data.cta ? '<a class="footnote-cta" href="' + data.cta.href + '">' + data.cta.label + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>' : '') +
+                '</div></div>' +
+            '</div>';
+          return panel;
+        }
+
+        let activeMega = null;
+        let activeTrigger = null;
+
+        function closeAllMega() {
+          document.querySelectorAll('.mega-panel.is-open').forEach(function (p) { p.classList.remove('is-open'); });
+          document.querySelectorAll('.nav-item-mega.is-open').forEach(function (n) { n.classList.remove('is-open'); });
+          document.body.classList.remove('mega-open');
+          activeMega = null;
+          activeTrigger = null;
+        }
+
+        function openMega(key, trigger) {
+          if (activeMega === key) return;
+          closeAllMega();
+          let panel = document.querySelector('.mega-panel[data-mega="' + key + '"]');
+          if (!panel) {
+            panel = buildPanel(key);
+            if (!panel) return;
+            document.body.appendChild(panel);
+          }
+          requestAnimationFrame(function () {
+            panel.classList.add('is-open');
+            trigger.classList.add('is-open');
+            document.body.classList.add('mega-open');
+          });
+          activeMega = key;
+          activeTrigger = trigger;
+        }
+
+        function init() {
+          const triggers = document.querySelectorAll('a.nav-item-mega, .nav-item-mega');
+          if (!triggers.length) return;
+          triggers.forEach(function (trigger) {
+            const key = trigger.dataset.mega;
+            if (!key) return;
+            trigger.addEventListener('click', function (e) {
+              e.preventDefault();
+              if (activeMega === key) { closeAllMega(); } else { openMega(key, trigger); }
+            });
+            trigger.addEventListener('mouseenter', function () {
+              if (window.matchMedia('(hover: hover)').matches) { openMega(key, trigger); }
+            });
+          });
+          const navArea = document.querySelector('.site-header');
+          if (navArea) {
+            navArea.addEventListener('mouseleave', function () {
+              setTimeout(function () { if (!document.querySelector('.mega-panel:hover')) closeAllMega(); }, 80);
+            });
+          }
+          document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAllMega(); });
+          document.addEventListener('click', function (e) {
+            if (!activeMega) return;
+            if (e.target.closest('.mega-panel') || e.target.closest('.nav-item-mega') || e.target.closest('[data-mega]')) return;
+            closeAllMega();
+          });
+          document.addEventListener('mouseout', function (e) {
+            const out = e.relatedTarget;
+            if (!activeMega) return;
+            if (out && (out.closest && (out.closest('.mega-panel') || out.closest('.nav-item-mega')))) return;
+            const panel = document.querySelector('.mega-panel.is-open');
+            if (!panel) return;
+            const overPanel = panel.matches(':hover');
+            const overTrigger = activeTrigger && activeTrigger.matches(':hover');
+            if (!overPanel && !overTrigger) {
+              setTimeout(function () {
+                const p = document.querySelector('.mega-panel.is-open');
+                if (!p) return;
+                if (!p.matches(':hover') && !(activeTrigger && activeTrigger.matches(':hover'))) closeAllMega();
+              }, 100);
+            }
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+
+    <slot name="scripts" />
   </body>
 </html>

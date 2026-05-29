@@ -1,0 +1,56 @@
+---
+// src/components/SiteHeader.astro
+// Shared site header + mega-menu trigger nav.
+// Ported from the static site's per-page <header> markup; differences between
+// pages (inverse surface, active nav item, logo lockup, CTA) are now props.
+
+interface Props {
+  /** Header surface modifier. '' = default (light), 'inverse' = dark surface variant. */
+  variant?: '' | 'inverse';
+  /** Which nav item is the current page: 'about' | 'cams' | 'boards' | 'summit' | null. */
+  active?: 'about' | 'cams' | 'boards' | 'summit' | null;
+  /** Logo file under /assets/logos/. Default: white-green lockup. */
+  logo?: string;
+  /** Logo render height in px. */
+  logoHeight?: number;
+  /** Primary CTA label. */
+  ctaLabel?: string;
+  /** Primary CTA href. */
+  ctaHref?: string;
+  /** Primary CTA button class. Default: 'btn btn-navy'. */
+  ctaClass?: string;
+}
+
+const {
+  variant = '',
+  active = null,
+  logo = '/assets/logos/innovia-white-green.png',
+  logoHeight = 38,
+  ctaLabel = 'Schedule a Conversation',
+  ctaHref = '/schedule-a-conversation/',
+  ctaClass = 'btn btn-navy',
+} = Astro.props;
+
+const headerClass = variant === 'inverse' ? 'site-header inverse' : 'site-header';
+---
+
+<header class={headerClass}>
+  <div class="container row">
+    <a href="/" class="brand">
+      <img src={logo} alt="Innovia Co-op" style={`height: ${logoHeight}px;`} />
+    </a>
+    <nav>
+      <a href="/about/" class={active === 'about' ? 'active' : undefined}>About</a>
+      <a href="/for-cams/why-innovia/" class={`nav-item-mega${active === 'cams' ? ' active' : ''}`} data-mega="cams">For CAMs <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+      <a href="/find-a-management-company/" class={`nav-item-mega${active === 'boards' ? ' active' : ''}`} data-mega="boards">For Boards <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+      <a href="/summit/" class={active === 'summit' ? 'active' : undefined}>Summit</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="member-signin placeholder placeholder-inline">Member sign in</a>
+      <a href={ctaHref} class={ctaClass}>
+        {ctaLabel}
+        <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</header>

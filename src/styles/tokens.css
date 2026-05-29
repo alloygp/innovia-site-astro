@@ -1,0 +1,185 @@
+/* ============================================================
+   Innovia Co-op — Design Tokens
+   Sampled from primary logo + navy square mark.
+   See README.md for the rationale behind each scale.
+   ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Geist:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* ---------- Core brand palette ---------- */
+  /* Sampled values:                                              */
+  /*   innovia gray-blue: rgb(144,160,176) → #90A0B0             */
+  /*   co-op green:       rgb(149,208, 49) → #95D031             */
+  /*   navy square BG:    rgb( 24, 51, 94) → #18335E             */
+
+  --innovia-navy:        #18335E;   /* primary brand surface     */
+  --innovia-navy-deep:   #0F2447;   /* hover / pressed nav       */
+  --innovia-navy-soft:   #2A4A78;   /* tinted nav for highlights */
+  --innovia-green:       #95D031;   /* primary action / accent   */
+  --innovia-green-deep:  #7AB31F;   /* hover state for green     */
+  --innovia-green-soft:  #C8E687;   /* tints, badges, highlights */
+  --innovia-steel:       #90A0B0;   /* logo gray-blue, secondary */
+  --innovia-steel-soft:  #C9D1DA;   /* dividers, muted surfaces  */
+
+  /* ---------- Neutral scale (cool gray) ---------- */
+  --neutral-0:    #FFFFFF;
+  --neutral-50:   #F7F8FA;
+  --neutral-100:  #EEF1F4;
+  --neutral-200:  #DDE2E8;
+  --neutral-300:  #C9D1DA;
+  --neutral-400:  #9AA5B2;
+  --neutral-500:  #6B7785;
+  --neutral-600:  #4A5663;
+  --neutral-700:  #2F3942;
+  --neutral-800:  #1B2027;
+  --neutral-900:  #0E1116;
+
+  /* ---------- Semantic surface + foreground ---------- */
+  --bg-page:        var(--neutral-0);
+  --bg-subtle:      var(--neutral-50);
+  --bg-muted:       var(--neutral-100);
+  --bg-inverse:     var(--innovia-navy);
+  --bg-inverse-deep:var(--innovia-navy-deep);
+
+  --fg-1:           var(--neutral-900);  /* primary text         */
+  --fg-2:           var(--neutral-700);  /* body text            */
+  --fg-3:           var(--neutral-500);  /* meta / captions      */
+  --fg-on-navy:     var(--neutral-0);
+  --fg-on-green:    var(--innovia-navy);
+
+  --border-subtle:  var(--neutral-200);
+  --border-strong:  var(--neutral-300);
+
+  /* ---------- Semantic intent ---------- */
+  --accent:         var(--innovia-green);
+  --accent-fg:      var(--innovia-navy);
+  --link:           var(--innovia-navy);
+  --link-hover:     var(--innovia-green-deep);
+
+  --success:        #2E7D3A;
+  --warning:        #C2701A;
+  --danger:         #B23A3A;
+  --info:           var(--innovia-navy);
+
+  /* ---------- Typography ---------- */
+  /* Display: Lato is the closest open-source match to the logo's */
+  /* humanist sans (single-story 'a', circular 'o', round dots).  */
+  /* If client has the original face, swap --font-display.        */
+  --font-display: "Geist", "Helvetica Neue", "Arial", sans-serif;
+  --font-body:    "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "JetBrains Mono", "SF Mono", Menlo, monospace;
+  /* Summit sub-brand: tall condensed display, used for the event wordmark,
+     signage, and section headers in Summit decks and the microsite. */
+  --font-summit:  "Antonio", "Oswald", "Impact", "Arial Narrow Bold", sans-serif;
+
+  /* Type scale — modular 1.200 (minor third) anchored at 16px    */
+  --fs-100:  0.75rem;     /* 12 — micro / labels                  */
+  --fs-200:  0.875rem;    /* 14 — meta                            */
+  --fs-300:  1rem;        /* 16 — body                            */
+  --fs-400:  1.125rem;    /* 18 — lead body                       */
+  --fs-500:  1.375rem;    /* 22 — h5 / sub-section                */
+  --fs-600:  1.75rem;     /* 28 — h4                              */
+  --fs-700:  2.25rem;     /* 36 — h3                              */
+  --fs-800:  3rem;        /* 48 — h2                              */
+  --fs-900:  4rem;        /* 64 — h1                              */
+  --fs-display: 5.5rem;   /* 88 — hero display                    */
+
+  --lh-tight:  1.1;
+  --lh-snug:   1.25;
+  --lh-base:   1.5;
+  --lh-loose:  1.65;
+
+  --tracking-tight:  -0.01em;
+  --tracking-base:   0;
+  --tracking-wide:   0.04em;
+  --tracking-caps:   0.12em;   /* tagline / eyebrow caps          */
+
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    900;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ---------- Radii ---------- */
+  --r-xs:  2px;
+  --r-sm:  4px;
+  --r-md:  8px;
+  --r-lg:  12px;
+  --r-xl:  20px;
+  --r-pill: 999px;
+
+  /* ---------- Elevation ---------- */
+  --shadow-1: 0 1px 2px rgba(15, 36, 71, 0.06), 0 1px 1px rgba(15, 36, 71, 0.04);
+  --shadow-2: 0 4px 12px rgba(15, 36, 71, 0.08), 0 1px 2px rgba(15, 36, 71, 0.06);
+  --shadow-3: 0 12px 32px rgba(15, 36, 71, 0.12), 0 2px 6px rgba(15, 36, 71, 0.08);
+  --shadow-4: 0 24px 64px rgba(15, 36, 71, 0.18), 0 4px 12px rgba(15, 36, 71, 0.10);
+  --ring-focus: 0 0 0 3px rgba(149, 208, 49, 0.45);
+
+  /* ---------- Motion ---------- */
+  --ease-out:  cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:  120ms;
+  --dur-base:  220ms;
+  --dur-slow:  420ms;
+
+  /* ---------- Layout ---------- */
+  --container-md: 960px;
+  --container-lg: 1200px;
+  --container-xl: 1440px;
+  --gutter:       max(20px, 4vw);
+}
+
+/* ============================================================
+   Semantic typography classes — apply directly or use the
+   matching tag selectors below.
+   ============================================================ */
+
+.t-eyebrow {
+  font-family: var(--font-body);
+  font-size:   var(--fs-100);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.t-display, .t-h1, .t-h2, .t-h3, .t-h4, .t-h5 {
+  font-family: var(--font-display);
+  color: var(--fg-1);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-tight);
+  text-wrap: balance;
+}
+
+.t-display { font-size: var(--fs-display); font-weight: var(--fw-black); }
+.t-h1      { font-size: var(--fs-900);     font-weight: var(--fw-black); }
+.t-h2      { font-size: var(--fs-800);     font-weight: var(--fw-bold);  }
+.t-h3      { font-size: var(--fs-700);     font-weight: var(--fw-bold);  line-height: var(--lh-snug); }
+.t-h4      { font-size: var(--fs-600);     font-weight: var(--fw-bold);  line-height: var(--lh-snug); }
+.t-h5      { font-size: var(--fs-500);     font-weight: var(--fw-bold);  line-height: var(--lh-snug); letter-spacing: 0; }
+
+.t-lead    { font-family: var(--font-body); font-size: var(--fs-400); line-height: var(--lh-loose); color: var(--fg-2); text-wrap: pretty; }
+.t-body    { font-family: var(--font-body); font-size: var(--fs-300); line-height: var(--lh-base);  color: var(--fg-2); text-wrap: pretty; }
+.t-meta    { font-family: var(--font-body); font-size: var(--fs-200); line-height: var(--lh-base);  color: var(--fg-3); }
+.t-micro   { font-family: var(--font-body); font-size: var(--fs-100); line-height: var(--lh-base);  color: var(--fg-3); }
+.t-mono    { font-family: var(--font-mono); font-size: var(--fs-200); }
+
+/* Convenience element selectors — purposely scoped under .ds */
+.ds h1 { @extend .t-h1; }
+.ds h2 { @extend .t-h2; }
+.ds h3 { @extend .t-h3; }
+.ds p  { @extend .t-body; }

@@ -6,11 +6,12 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   // ── STEP 1: update to client's live domain ────────────────────
-  site: 'https://clientsite.com',
+  site: 'https://innoviaco-op.com',
 
   output: 'server',
   adapter: vercel(),
-  trailingSlash: 'never',
+  // Canonical URLs carry a trailing slash (matches the ported site's target URLs).
+  trailingSlash: 'always',
 
   integrations: [
     react(),
@@ -28,7 +29,9 @@ export default defineConfig({
   },
 
   redirects: {
-    // Add legacy URL redirects here as needed
-    // '/old-path': '/new-path',
+    // Planned legacy → new path (per handoff doc)
+    '/join-innovia/': '/for-cams/why-innovia/',
+    // Static-build internal path → homepage
+    '/pages/home-b/': '/',
   },
 });
