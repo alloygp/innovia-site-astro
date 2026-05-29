@@ -228,24 +228,27 @@ const html = `<style>
     }
     .creed h2 em { color: var(--innovia-green); font-style: normal; }
 
-    /* ---------- Governance image ---------- */
-    .governance-image {
-      padding: 80px 0 0;
-      background: #FBFAF6;
-    }
-    .governance-image img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-    }
-
     /* ---------- Governance ---------- */
     .governance {
+      position: relative;
       padding: 120px 0;
       background: #FBFAF6;
       color: var(--fg-2);
+      overflow: hidden;
     }
+    .governance::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('/assets/photos/how-the-cooperative-is-run.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .governance > .container { position: relative; z-index: 1; }
     .governance .head {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 80px; align-items: end;
@@ -571,13 +574,6 @@ const html = `<style>
           <span class="meta">P · 04 · Independence</span>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- HOW THE COOPERATIVE IS RUN — IMAGE -->
-  <section class="governance-image">
-    <div class="container">
-      <img src="/assets/photos/how-the-cooperative-is-run.png" alt="How the cooperative is run" />
     </div>
   </section>
 
