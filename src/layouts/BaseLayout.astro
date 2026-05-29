@@ -361,6 +361,97 @@ const gaMeasurementId = import.meta.env.GA_MEASUREMENT_ID;
       })();
     </script>
 
+    <!-- Accordion behavior: one open at a time + eased open/close animation.
+         Groups <details> by their shared parent, so it covers every FAQ list
+         (.faq .list, .tp-faq, and any future accordion) with no markup change. -->
+    <script is:inline>
+      (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var OPEN_MS = 300, CLOSE_MS = 250;
+        var EASE_OPEN = 'cubic-bezier(0.22, 0.61, 0.36, 1)';
+        var EASE_CLOSE = 'cubic-bezier(0.4, 0, 0.2, 1)';
+
+        function panelOf(d) {
+          return d.querySelector(':scope > .a') ||
+                 d.querySelector(':scope > *:not(summary)');
+        }
+
+        function expand(d) {
+          var c = panelOf(d);
+          if (!c) { d.open = true; return; }
+          if (d._anim) d._anim.cancel();
+          d.open = true;
+          if (reduce) return;
+          var cs = getComputedStyle(c);
+          var pt = cs.paddingTop, pb = cs.paddingBottom;
+          var full = c.scrollHeight;
+          c.style.overflow = 'hidden';
+          var a = c.animate(
+            [
+              { height: '0px', paddingTop: '0px', paddingBottom: '0px', opacity: 0 },
+              { height: full + 'px', paddingTop: pt, paddingBottom: pb, opacity: 1 }
+            ],
+            { duration: OPEN_MS, easing: EASE_OPEN }
+          );
+          d._anim = a;
+          a.onfinish = function () { d._anim = null; c.style.height = c.style.paddingTop = c.style.paddingBottom = c.style.overflow = ''; };
+          a.oncancel = function () { c.style.overflow = ''; };
+        }
+
+        function shrink(d) {
+          var c = panelOf(d);
+          if (!c) { d.open = false; return; }
+          if (reduce) { d.open = false; return; }
+          if (d._anim) d._anim.cancel();
+          var cs = getComputedStyle(c);
+          var pt = cs.paddingTop, pb = cs.paddingBottom;
+          var full = c.scrollHeight;
+          c.style.overflow = 'hidden';
+          var a = c.animate(
+            [
+              { height: full + 'px', paddingTop: pt, paddingBottom: pb, opacity: 1 },
+              { height: '0px', paddingTop: '0px', paddingBottom: '0px', opacity: 0 }
+            ],
+            { duration: CLOSE_MS, easing: EASE_CLOSE }
+          );
+          d._anim = a;
+          a.onfinish = function () { d._anim = null; d.open = false; c.style.height = c.style.paddingTop = c.style.paddingBottom = c.style.overflow = ''; };
+          a.oncancel = function () { c.style.overflow = ''; };
+        }
+
+        function init() {
+          var groups = new Map();
+          document.querySelectorAll('details').forEach(function (d) {
+            var p = d.parentElement;
+            if (!p) return;
+            if (!groups.has(p)) groups.set(p, []);
+            groups.get(p).push(d);
+          });
+          groups.forEach(function (items) {
+            items.forEach(function (d) {
+              var summary = d.querySelector(':scope > summary');
+              if (!summary) return;
+              summary.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (d.open) {
+                  shrink(d);
+                } else {
+                  items.forEach(function (other) { if (other !== d && other.open) shrink(other); });
+                  expand(d);
+                }
+              });
+            });
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+
     <slot name="scripts" />
   </body>
 </html>
