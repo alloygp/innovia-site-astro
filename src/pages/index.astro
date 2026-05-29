@@ -888,10 +888,10 @@ const html = `<style>
   <section class="manifesto-hero" id="top">
     <div class="bg-video" aria-hidden="true">
       <iframe
-        src="https://www.youtube-nocookie.com/embed/nUDEX1CJtc8?autoplay=1&mute=1&loop=1&playlist=nUDEX1CJtc8&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&cc_load_policy=0"
+        src="https://player.vimeo.com/video/1194454359?h=e96785a762&background=1&autoplay=1&loop=1&muted=1&dnt=1"
         title="Innovia hero background"
         frameborder="0"
-        allow="autoplay; encrypted-media; picture-in-picture"
+        allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen=""
         tabindex="-1"></iframe>
     </div>
@@ -1160,7 +1160,7 @@ const html = `<style>
       </div>
 
       <!-- Featured highlight video -->
-      <div class="feature" data-yt="nUDEX1CJtc8" role="button" tabindex="0" aria-label="Play Summit 2026 highlights">
+      <div class="feature" data-vimeo="1191655679" role="button" tabindex="0" aria-label="Play Summit 2026 highlights">
         <img src="/assets/photos/reception-rooftop-evening.jpg" alt="">
         <span class="label-top">
           <span class="dot"></span>
@@ -1280,18 +1280,23 @@ const html = `<style>
 
   
   <script>
-    // Summit video — lazy-load YouTube iframe on click
+    // Summit video — lazy-load the highlights iframe on click (Vimeo or YouTube)
     (function () {
-      const tiles = document.querySelectorAll('.summit-b .video-tile');
+      const tiles = document.querySelectorAll('.summit-b .feature, .summit-b .video-tile');
       tiles.forEach(tile => {
         function play() {
           if (tile.classList.contains('is-playing')) return;
-          const id = tile.dataset.yt;
-          if (!id) return;
+          const vimeoId = tile.dataset.vimeo;
+          const ytId = tile.dataset.yt;
+          if (!vimeoId && !ytId) return;
           const iframe = document.createElement('iframe');
-          iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+          if (vimeoId) {
+            iframe.src = 'https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&title=0&byline=0&portrait=0&dnt=1';
+          } else {
+            iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?autoplay=1&rel=0&modestbranding=1';
+          }
           iframe.title = 'Summit highlights';
-          iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+          iframe.allow = 'autoplay; fullscreen; encrypted-media; picture-in-picture';
           iframe.allowFullscreen = true;
           tile.appendChild(iframe);
           tile.classList.add('is-playing');
