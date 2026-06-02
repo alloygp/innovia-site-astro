@@ -1,0 +1,570 @@
+---
+import "../styles/tokens.css";
+import "../styles/site.css";
+import "../styles/member-landing.css";
+import type { Member } from "../data/members";
+
+const { member } = Astro.props as { member: Member };
+
+const proLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: member.businessName,
+  description: member.metaDescription,
+  url: member.canonical,
+  telephone: member.phoneTel,
+  email: member.email,
+  priceRange: "$$",
+  memberOf: { "@type": "Organization", name: "Innovia Co-op", url: "https://innoviaco-op.com" },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: member.address.street,
+    addressLocality: member.address.locality,
+    addressRegion: member.address.region,
+    postalCode: member.address.postalCode,
+    addressCountry: member.address.country,
+  },
+  areaServed: [
+    ...member.areaServed.map((c) => ({ "@type": "City", name: c })),
+    { "@type": "AdministrativeArea", name: member.county },
+  ],
+  aggregateRating: { "@type": "AggregateRating", ratingValue: member.rating.value, reviewCount: member.rating.count },
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: member.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+---
+
+
+  <!-- ============ HEADER ============ -->
+  <header class="member-header">
+    <div class="container row">
+      <!-- Innovia-branded header. Local member firm sits in the background (footer + body). -->
+      <a href="#top" class="brand">
+        <img src="/assets/logos/innovia-white-green.png" alt="Innovia Co-op">
+      </a>
+      <div class="locator">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        {member.city}
+      </div>
+      <nav>
+        <a href="#why">Why us</a>
+        <a href="#services">Services</a>
+        <a href="#area">Service area</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="head-cta">
+        <!-- {{PHONE}} -->
+        <a href={`tel:${member.phoneTel}`} class="phone">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>{member.phoneDisplay}</span>
+        </a>
+        <a href="#inquiry" class="btn btn-primary head-proposal">Request a proposal
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO + BANNER FORM ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"><img src="/assets/photos/board-meeting-hero.jpg" alt=""></div>
+    <div class="container">
+      <div class="layout">
+        <div class="pitch">
+          <div class="crumb">
+            <span class="dot"></span>
+            <!-- {{REGION}} -->
+            HOA &amp; Condo Management · {member.region}
+          </div>
+          <!-- {{CITY}} -->
+          <h1>{member.headlineCity} HOA management, backed by <em>Innovia.</em></h1>
+          <p class="lede">Inquire here and you&rsquo;re matched with your local <strong style="color:#fff;">Innovia</strong> member firm &mdash; an independent, locally owned management company right here in the Valley, backed by Innovia&rsquo;s national network of 80+ of the country&rsquo;s best independent managers. Local people who answer the phone. National resources behind every decision.</p>
+
+          <div class="trust-row">
+            {member.stats.map((s) => (
+              <div class="t"><span class="v">{s.value}{s.unit && <span class="u">{s.unit}</span>}</span><span class="k">{s.label}</span></div>
+            ))}
+          </div>
+
+          <div class="badges">
+            <span class="b"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Innovia-backed national network</span>
+            <span class="b"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>CMCA &amp; AMS credentialed managers</span>
+            <span class="b"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Locally owned · never sold to a national</span>
+          </div>
+        </div>
+
+        <!-- BANNER LEAD FORM -->
+        <div class="form-wrap" id="inquiry">
+          <span class="form-flag">Free proposal</span>
+          <form class="lead-form" onsubmit="event.preventDefault(); this.querySelector('button[type=submit]').textContent='Thanks — we&rsquo;ll be in touch within 2 business days';">
+            <h2>Get a proposal for your community</h2>
+            <p class="sub">Tell us a little about your association. A local manager &mdash; not a call center &mdash; gets back to you within two business days.</p>
+
+            <fieldset>
+              <div class="grid-2">
+                <input type="text" placeholder="Community name" aria-label="Community name" autocomplete="organization" required>
+                <input type="text" placeholder="City / area" aria-label="City or area" autocomplete="address-level2" required>
+              </div>
+              <div class="grid-2">
+                <label class="field">Property type
+                  <select required>
+                    <option value="">Choose one</option>
+                    <option>Single-family HOA</option>
+                    <option>Condominium</option>
+                    <option>Townhome / PUD</option>
+                    <option>Master-planned</option>
+                    <option>Mixed-use</option>
+                  </select>
+                </label>
+                <label class="field">Number of units
+                  <select required>
+                    <option value="">Choose a range</option>
+                    <option>Under 50</option>
+                    <option>50&ndash;150</option>
+                    <option>150&ndash;400</option>
+                    <option>400&ndash;1,000</option>
+                    <option>Over 1,000</option>
+                  </select>
+                </label>
+              </div>
+              <label class="field">Timeline
+                <select required>
+                  <option value="">When are you looking to make a change?</option>
+                  <option>Immediate &middot; within 30 days</option>
+                  <option>Soon &middot; 1&ndash;3 months</option>
+                  <option>This year &middot; 3&ndash;12 months</option>
+                  <option>Just exploring</option>
+                </select>
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <div class="grid-2">
+                <input type="text" placeholder="Your name" aria-label="Your name" autocomplete="name" required>
+                <input type="email" placeholder="Email" aria-label="Email" autocomplete="email" required>
+              </div>
+              <input type="tel" placeholder="Phone (optional)" aria-label="Phone" autocomplete="tel">
+            </fieldset>
+
+            <div class="submit-row">
+              <small>No cost, no obligation. Your details go to your local Innovia member firm only &mdash; never sold or shared with vendors.</small>
+              <button type="submit">Request my proposal
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY INNOVIA-BACKED (UVP) ============ -->
+  <section class="why-innovia" id="why">
+    <div class="container">
+      <div class="head">
+        <div class="copy">
+          <div class="eyebrow on-dark"><span class="rule-mini"></span>The difference</div>
+          <h2 style="margin-top:14px;">Local management. <em style="color:var(--innovia-green); font-style:normal;">National</em> muscle.</h2>
+          <p>Most boards are choosing between a small local firm that knows the area but can&rsquo;t match a national&rsquo;s resources &mdash; or a giant roll-up where you&rsquo;re an account number. Your local <strong style="color:#fff;">Innovia</strong> member firm is a third option: independently owned and locally run, but backed by the cooperative &mdash; a network of 80+ of the country&rsquo;s best independent managers, sharing buying power, training, and hard-won know-how.</p>
+        </div>
+        <div class="shot">
+          <img src="/assets/photos/why-innovia.jpg" alt="Community managers in a working session">
+          <span class="cap">Operators who run companies like yours</span>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="item">
+          <span class="n">01</span>
+          <h4>Better vendor pricing</h4>
+          <p>Co-op-negotiated rates on banking, insurance, and maintenance partners &mdash; passed straight through to your reserve and operating budgets.</p>
+        </div>
+        <div class="item">
+          <span class="n">02</span>
+          <h4>Better-trained managers</h4>
+          <p>Our managers tap Innovia&rsquo;s peer network and academy, learning from 80+ companies across the country &mdash; not just whoever&rsquo;s down the hall.</p>
+        </div>
+        <div class="item">
+          <span class="n">03</span>
+          <h4>Real benchmarks</h4>
+          <p>We compare your fees, reserves, and service levels against 1.4M+ households of cooperative data. You get the median, not a guess.</p>
+        </div>
+        <div class="item">
+          <span class="n">04</span>
+          <h4>We won&rsquo;t disappear</h4>
+          <p>We chose the co-op over selling to a national. Your manager won&rsquo;t change because a private-equity buyer rolled us up next quarter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPARISON ============ -->
+  <section class="compare">
+    <div class="container">
+      <div class="sec-head" style="margin-bottom:48px;">
+        <div>
+          <div class="eyebrow on-dark"><span class="rule-mini"></span>An honest comparison</div>
+          <h2 style="color:#fff; margin-top:14px;">Why boards pick an Innovia-backed firm.</h2>
+        </div>
+        <p style="color:rgba(255,255,255,0.74);">You shouldn&rsquo;t have to trade local service for serious resources. With us, you don&rsquo;t.</p>
+      </div>
+      <div class="cols">
+        <div class="col us">
+          <span class="tagline">Innovia member firm · local + national</span>
+          <h3>Independent + national network</h3>
+          <ul>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A dedicated local manager who knows your community by name</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Co-op vendor pricing on banking, insurance &amp; maintenance</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Decisions made here in the Valley &mdash; not at a distant HQ</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ownership that stays put &mdash; no roll-up, no churn</li>
+          </ul>
+        </div>
+        <div class="col them">
+          <span class="tagline">The national roll-up</span>
+          <h3>Big back-office, distant service</h3>
+          <ul>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Call-center triage and a manager who rotates every few months</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Vendor markups and ancillary fees that pad the parent&rsquo;s margin</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Policies set far away, slow to adapt to your community</li>
+            <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Acquired and re-acquired &mdash; your point of contact keeps changing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="services lt" id="services">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow"><span class="rule-mini"></span>What we handle</div>
+          <h2 style="margin-top:14px;">Full-service management for your association.</h2>
+        </div>
+        <p>One team for the financials, the vendors, the violations, and the board meetings &mdash; so your volunteers can stop doing a second job.</p>
+      </div>
+      <div class="grid">
+        <div class="svc">
+          <span class="ix">01</span>
+          <h4>Financial management</h4>
+          <p>Budgets, reserves, dues collection, AP/AR, and board-ready statements every month &mdash; on banking partners vetted by the co-op.</p>
+        </div>
+        <div class="svc">
+          <span class="ix">02</span>
+          <h4>Maintenance &amp; vendors</h4>
+          <p>Bids, scheduling, and oversight with pre-vetted contractors at cooperative pricing. Work gets done; you see the receipts.</p>
+        </div>
+        <div class="svc">
+          <span class="ix">03</span>
+          <h4>Board &amp; meeting support</h4>
+          <p>Agendas, packets, minutes, and elections handled. We make your meetings shorter and your decisions easier.</p>
+        </div>
+        <div class="svc">
+          <span class="ix">04</span>
+          <h4>Compliance &amp; covenants</h4>
+          <p>Consistent, documented enforcement of your CC&amp;Rs &mdash; fair to homeowners and defensible for the board.</p>
+        </div>
+        <div class="svc">
+          <span class="ix">05</span>
+          <h4>Homeowner service</h4>
+          <p>A responsive portal plus real people who answer. Owners get clear answers; the board stops fielding every call.</p>
+        </div>
+        <div class="svc">
+          <span class="ix">06</span>
+          <h4>Reserve &amp; capital planning</h4>
+          <p>Reserve studies, funding plans, and capital-project guidance &mdash; benchmarked against communities like yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICE AREA MAP ============ -->
+  <section class="area" id="area">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow on-dark"><span class="rule-mini"></span>Where we work</div>
+          <h2 style="color:#fff; margin-top:14px;">Serving communities across the Valley.</h2>
+        </div>
+        <p style="color:rgba(255,255,255,0.74);">{member.areaBlurb}</p>
+      </div>
+      <div class="frame">
+        <div class="map">
+          <div class="grid-bg"></div>
+          <span class="label">{member.serviceAreaLabel}</span>
+          <svg viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+            <!-- stylized freeway network -->
+            <path class="road" d="M 60 250 H 580"/>
+            <path class="road" d="M 320 40 V 420"/>
+            <path class="road" d="M 120 120 L 520 360"/>
+            <path class="road" d="M 520 120 L 160 360"/>
+            <!-- coverage ring centered on HQ -->
+            <circle class="ring" cx="300" cy="230" r="190"/>
+            <!-- cities -->
+            <g>
+              <circle class="pin" cx="300" cy="230" r="0"/>
+              <circle class="pin" cx="190" cy="150" r="6"/><text class="pin-lbl" x="190" y="138" text-anchor="middle">Peoria</text>
+              <circle class="pin" cx="150" cy="225" r="6"/><text class="pin-lbl" x="150" y="213" text-anchor="middle">Glendale</text>
+              <circle class="pin" cx="245" cy="195" r="5"/><text class="pin-lbl" x="245" y="183" text-anchor="middle">Tempe</text>
+              <circle class="pin" cx="420" cy="180" r="7"/><text class="pin-lbl" x="420" y="168" text-anchor="middle">Scottsdale</text>
+              <circle class="pin" cx="450" cy="270" r="7"/><text class="pin-lbl" x="452" y="290" text-anchor="middle">Mesa</text>
+              <circle class="pin" cx="390" cy="330" r="6"/><text class="pin-lbl" x="390" y="350" text-anchor="middle">Gilbert</text>
+              <circle class="pin" cx="300" cy="345" r="6"/><text class="pin-lbl" x="300" y="365" text-anchor="middle">Chandler</text>
+              <circle class="pin" cx="475" cy="360" r="5"/><text class="pin-lbl" x="478" y="380" text-anchor="middle">Queen Creek</text>
+              <circle class="pin" cx="120" cy="320" r="5"/><text class="pin-lbl" x="120" y="340" text-anchor="middle">Goodyear</text>
+            </g>
+            <!-- HQ (Phoenix) as green diamond -->
+            <rect class="hq" x="288" y="218" width="24" height="24" transform="rotate(45 300 230)"/>
+            <text class="hq-lbl" x="300" y="210" text-anchor="middle">Phoenix · HQ</text>
+          </svg>
+          <div class="legend">
+            <span><span class="d hq"></span>Our office</span>
+            <span><span class="d city"></span>Communities served</span>
+          </div>
+        </div>
+        <div class="coverage">
+          <h3>Cities we serve</h3>
+          <p>Local managers within reach of every community on our roster &mdash; and growing.</p>
+          <div class="cities">
+            {member.serviceCities.map((c) => (<a href="#inquiry">{c}</a>))}
+          </div>
+          <div class="foot">Don&rsquo;t see your city? We&rsquo;re likely still nearby &mdash; just ask.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="reviews lt" id="reviews">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow"><span class="rule-mini"></span>From the boards we serve</div>
+          <h2 style="margin-top:14px;">Communities that stopped shopping around.</h2>
+        </div>
+        <p>Real words from board members and homeowners in the communities we manage. Swap in your own firm&rsquo;s reviews here.</p>
+      </div>
+      <div class="grid">
+        {member.reviews.map((r) => (
+          <div class="card">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p class="q">{r.quote}</p>
+            <div class="attr">
+              <div class="avatar">{r.initials}</div>
+              <div class="who"><div class="nm">{r.name}</div><div class="rl">{r.role}</div></div>
+            </div>
+          </div>
+        ))}
+
+        <figure class="coop-quote">
+          <div class="mark-i"><img src="/assets/logos/innovia-white-green.png" alt="Innovia Co-op"></div>
+          <blockquote class="q">Our membership in Innovia lets us stay independent while having the buying power and thought leadership of the best independent companies across the country.</blockquote>
+          <figcaption class="src">
+            <div class="nm">A founder&rsquo;s view</div>
+            <div class="rl">Why our firm joined Innovia Co-op<br />&mdash; adapt with your owner&rsquo;s quote</div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="how-sec">
+    <div class="container">
+      <div class="sec-head" style="margin-bottom:48px;">
+        <div>
+          <div class="eyebrow" style="color:var(--innovia-navy); opacity:0.7;"><span class="rule-mini"></span>What happens next</div>
+          <h2 style="margin-top:14px;">From inquiry to proposal in three steps.</h2>
+        </div>
+        <p style="color:var(--innovia-navy); opacity:0.85;">No pressure, no call lists, no obligation. Just a clear path to a real proposal for your community.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="when">Step 01 · Today</div>
+          <h4>Tell us about your community</h4>
+          <p>Fill out the form or call. Share your size, property type, and what your board needs most. Three minutes.</p>
+        </div>
+        <div class="step">
+          <div class="when">Step 02 · Within 2 days</div>
+          <h4>A local manager reaches out</h4>
+          <p>You&rsquo;ll talk with an actual manager from the Valley &mdash; not a sales rep &mdash; who learns your situation and answers questions.</p>
+        </div>
+        <div class="step">
+          <div class="when">Step 03 · Your timeline</div>
+          <h4>Review a tailored proposal</h4>
+          <p>A clear scope and transparent pricing built for your association. Take it to the board &mdash; decide when you&rsquo;re ready.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq-sec" id="faq">
+    <div class="container">
+      <div class="head">
+        <div class="eyebrow on-dark"><span class="rule-mini"></span>Common questions</div>
+        <h2 style="margin-top:14px;">What boards ask before switching.</h2>
+      </div>
+      <div class="list">
+        {member.faqs.map((f, i) => (
+          <details open={i === 0}>
+            <summary><span class="n">{`Q·0${i + 1}`}</span><span class="q">{f.q}</span><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="a" set:html={f.a}></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="final">
+    <div class="container">
+      <div class="frame">
+        <div>
+          <div class="eyebrow on-dark"><span class="rule-mini"></span>Let&rsquo;s talk</div>
+          <h2 style="margin-top:14px;">Your community deserves <em>better management.</em></h2>
+          <p>Independent, local, and backed by a national cooperative. Get a free, no-obligation proposal for your association &mdash; a real local manager will be in touch within two business days.</p>
+        </div>
+        <div class="actions">
+          <a href="#inquiry" class="btn btn-primary">Request a proposal
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+          <a href={`tel:${member.phoneTel}`} class="phone-big">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            {member.phoneDisplay}
+          </a>
+          <div class="micro">{member.hoursNote}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEMBER FOOTER ============ -->
+  <footer class="member-footer">
+    <div class="container">
+      <div class="top">
+        <div class="brand">
+          <img src="/assets/logos/innovia-white-green.png" alt="Innovia Co-op" style="height:30px; margin-bottom:16px;">
+          <p>Innovia-backed HOA &amp; condo management for Phoenix and Maricopa County &mdash; national resources, delivered by independent local people.</p>
+        </div>
+        <div>
+          <h6>Company</h6>
+          <ul>
+            <li><a href="#why">Why Innovia-backed</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#area">Service area</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>For boards</h6>
+          <ul>
+            <li><a href="#inquiry">Request a proposal</a></li>
+            <li><a href="#how">How it works</a></li>
+            <li><a href="https://innoviaco-op.com" target="_blank" rel="noopener">About Innovia Co-op</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Contact</h6>
+          <div class="contact-line">
+            <span class="v">{member.phoneDisplay}</span>
+            <span>{member.email}</span>
+            <span>{member.address.street}<br />{member.address.locality}, {member.address.region} {member.address.postalCode}</span>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span>&copy; 2026 Innovia Co-op. All rights reserved.</span>
+        <span class="colophon">Independent &amp; locally owned · Member of Innovia Co-op</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Structured data (built from the member object) -->
+  <script type="application/ld+json" set:html={JSON.stringify(proLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+
+  <script is:inline>
+(function () {
+      var header = document.querySelector('.member-header');
+      var form = document.getElementById('inquiry');
+      if (!header || !form || !('IntersectionObserver' in window)) {
+        if (header) header.classList.add('cta-shown');
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        if (!e.isIntersecting && e.boundingClientRect.top < 0) {
+          header.classList.add('cta-shown');
+        } else {
+          header.classList.remove('cta-shown');
+        }
+      }, { rootMargin: '-74px 0px 0px 0px', threshold: 0 });
+      io.observe(form);
+    })();
+  </script>
+
+  <script is:inline>
+(function () {
+      var sec = document.querySelector('.faq-sec');
+      if (!sec) return;
+      var items = Array.prototype.slice.call(sec.querySelectorAll('details'));
+      if (!items.length) return;
+      sec.classList.add('js');
+      items.forEach(function (d) {
+        var a = d.querySelector('.a');
+        if (a && !a.querySelector('.a-inner')) {
+          var inner = document.createElement('div');
+          inner.className = 'a-inner';
+          while (a.firstChild) inner.appendChild(a.firstChild);
+          a.appendChild(inner);
+        }
+        var wasOpen = d.hasAttribute('open');
+        d.setAttribute('open', '');          // keep content rendered; CSS handles collapse
+        if (wasOpen) d.classList.add('open');
+        var sum = d.querySelector('summary');
+        sum.addEventListener('click', function (e) {
+          e.preventDefault();
+          var willOpen = !d.classList.contains('open');
+          items.forEach(function (o) { o.classList.remove('open'); });
+          if (willOpen) d.classList.add('open');
+        });
+      });
+    })();
+  </script>
+
+  <script is:inline>
+(function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.member-header nav a'));
+      var map = {}, sections = [];
+      links.forEach(function (a) {
+        var href = a.getAttribute('href') || '';
+        if (href.charAt(0) === '#') {
+          var el = document.querySelector(href);
+          if (el) { map[el.id] = a; sections.push(el); }
+        }
+      });
+      if (!sections.length || !('IntersectionObserver' in window)) return;
+      var visible = {};
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) visible[e.target.id] = true; else delete visible[e.target.id];
+        });
+        var current = null, top = Infinity;
+        sections.forEach(function (s) {
+          if (visible[s.id]) {
+            var t = s.getBoundingClientRect().top;
+            if (t < top) { top = t; current = s.id; }
+          }
+        });
+        links.forEach(function (a) { a.classList.remove('active'); });
+        if (current && map[current]) map[current].classList.add('active');
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+      sections.forEach(function (s) { io.observe(s); });
+    })();
+  </script>
