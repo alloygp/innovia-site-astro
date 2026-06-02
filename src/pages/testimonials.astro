@@ -23,7 +23,11 @@ const html = `
         </h1>
       </div>
 
-      <!-- FILTERS -->
+    </div>
+  </section>
+
+  <div class="filter-sticky">
+    <div class="container">
       <div class="filter-band">
         <div class="row" data-filter-group="voice">
           <span class="label">Voice</span>
@@ -46,7 +50,7 @@ const html = `
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- FEATURED QUOTE -->
   <section class="featured-quote-section">
@@ -203,24 +207,36 @@ const html = `
     </div>
   </section>
 
-  <!-- SUMMIT FILMS -->
-  <section class="films" id="films">
+  <!-- MEMBER SPOTLIGHTS TEASER -->
+  <section class="spotlights-teaser">
     <div class="container">
       <div class="head">
         <div>
-          <div class="eyebrow on-dark"><span class="num" style="color: rgba(255,255,255,0.5)">No. 02</span><span class="rule-mini"></span>22 Member Films</div>
-          <h2 style="margin-top: 14px;">In production with <em>Alloy GP.</em></h2>
+          <div class="eyebrow on-dark"><span class="num" style="color: rgba(255,255,255,0.5)">No. 02</span><span class="rule-mini"></span>Member Spotlights</div>
+          <h2 style="margin-top: 14px;">Members <em>in action.</em></h2>
         </div>
-        <p>Twenty-two member companies, twenty-two short films. Each is a profile of an independent operator and a conversation about why they joined the cooperative. Rolling out across <strong>2026</strong> and dropping into Member Spotlights and this page as they ship.</p>
+        <p>The cooperative grows by introduction &mdash; and once you&rsquo;re inside, the proof is the work. Eight member spotlights published; more arriving across 2026.</p>
       </div>
-      <div class="film-grid">
-        <article class="film placeholder-tile"><span class="num">01</span><span class="state">Shipped</span><h4 class="placeholder placeholder-inline">[Member firm 01]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
-        <article class="film placeholder-tile"><span class="num">02</span><span class="state">Shipped</span><h4 class="placeholder placeholder-inline">[Member firm 02]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
-        <article class="film placeholder-tile pending"><span class="num">03</span><span class="state">Editing</span><h4 class="placeholder placeholder-inline">[Member firm 03]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
-        <article class="film placeholder-tile pending"><span class="num">04</span><span class="state">Q3 &middot; 2026</span><h4 class="placeholder placeholder-inline">[Member firm 04]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
-        <article class="film placeholder-tile pending"><span class="num">05</span><span class="state">Q3 &middot; 2026</span><h4 class="placeholder placeholder-inline">[Member firm 05]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
-        <article class="film placeholder-tile pending"><span class="num">06</span><span class="state">Q4 &middot; 2026</span><h4 class="placeholder placeholder-inline">[Member firm 06]</h4><span class="meta">~3 min &middot; <span class="placeholder placeholder-inline">[Region]</span></span></article>
-        <article class="film film-more"><div class="more"><span class="big">+16</span><span class="lbl">more films<br>in production</span></div></article>
+      <div class="spotlight-grid">
+        <a class="spotlight-card" href="/member-spotlights/">
+          <span class="sp-tag">Nov 2025</span>
+          <h4>Honoring excellence and innovation.</h4>
+          <p>Nova Association Management Partners &middot; Core Value Awards</p>
+        </a>
+        <a class="spotlight-card" href="/member-spotlights/">
+          <span class="sp-tag">Aug 2025</span>
+          <h4>Twelve performance measures for an HOA&rsquo;s annual checkup.</h4>
+          <p>Wise Property Solutions &middot; Practice</p>
+        </a>
+        <a class="spotlight-card" href="/member-spotlights/">
+          <span class="sp-tag">Jul 2025</span>
+          <h4>A remarkable example of leadership.</h4>
+          <p>Great North Property Management &middot; Leadership</p>
+        </a>
+        <a class="spotlight-card spotlight-cta" href="/member-spotlights/">
+          <span>See all 8 spotlights</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
   </section>
