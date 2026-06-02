@@ -48,6 +48,14 @@ const html = `<style>
     .inline-cta strong { display: block; font-family: var(--font-display); font-weight: 700; color: #fff; font-size: 17px; }
     .inline-cta span { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 4px; display: block; }
 
+    .testimonial-strip { padding: 64px 0; background: var(--innovia-navy-deep); border-top: 1px solid rgba(255,255,255,0.08); }
+    .testimonial-strip .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .testimonial-strip .tq { padding: 28px 32px; border-left: 3px solid var(--innovia-green); background: rgba(255,255,255,0.03); }
+    .testimonial-strip .tq blockquote { font-family: var(--font-display); font-weight: 500; font-size: 17px; line-height: 1.5; color: rgba(255,255,255,0.9); margin: 0 0 18px; letter-spacing: -0.005em; }
+    .testimonial-strip .tq .attr { font-size: 13px; color: rgba(255,255,255,0.55); }
+    .testimonial-strip .tq .attr strong { display: block; color: rgba(255,255,255,0.85); font-family: var(--font-display); font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+    @media (max-width: 720px) { .testimonial-strip .grid { grid-template-columns: 1fr; } }
+
     .related-pages { padding: 80px 0 96px; background: var(--innovia-navy-deep); border-top: 1px solid rgba(255,255,255,0.08); }
     .related-pages h2 { font-family: var(--font-display); font-weight: 700; font-size: 28px; color: #fff; margin: 0 0 24px; letter-spacing: -0.014em; }
     .related-pages .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -136,6 +144,28 @@ const html = `<style>
           <h2 id="first-90">The first 90 days.</h2>
           <p><span class="placeholder placeholder-inline">[Section content TBD. Cover: what to watch in the first 30, 60, 90 days under new management. How to know it&rsquo;s working.]</span></p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — boards who switched -->
+  <section class="testimonial-strip">
+    <div class="container">
+      <div class="grid">
+        <div class="tq">
+          <blockquote>&ldquo;Changing our management company to Landmarc was the best decision our Board ever made. We have been with Landmarc over 15 years and that statement still holds true today. They are a great company staffed with a team of exceptional professionals.&rdquo;</blockquote>
+          <div class="attr">
+            <strong>Dennis B.</strong>
+            Landmarc Real Estate &middot; Innovia member
+          </div>
+        </div>
+        <div class="tq">
+          <blockquote>&ldquo;Prior to Action Community Management we had a bad experience with another provider. We were nervous about turning our business over to anyone. Jeff and Elizabeth eliminated our concerns immediately &mdash; they provide their services with an incredible level of integrity and professionalism.&rdquo;</blockquote>
+          <div class="attr">
+            <strong>Cindy Miller</strong>
+            Action Community Management &middot; Innovia member
+          </div>
+        </div>
       </div>
     </div>
   </section>

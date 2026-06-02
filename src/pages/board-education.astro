@@ -241,6 +241,14 @@ const html = `<style>
     .res-card.cta:hover { border-color: var(--innovia-navy); }
     .res-card.cta:hover .foot .arrow { color: var(--innovia-navy); }
 
+    /* ---------- Pull quote ---------- */
+    .pull-quote { padding: 56px 0; background: var(--innovia-navy-deep); }
+    .pull-quote .frame { display: grid; grid-template-columns: 3px 1fr; gap: 28px; align-items: start; max-width: 72ch; }
+    .pull-quote .bar { background: var(--innovia-green); height: 100%; min-height: 80px; }
+    .pull-quote blockquote { font-family: var(--font-display); font-weight: 500; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.48; color: rgba(255,255,255,0.9); margin: 0 0 16px; letter-spacing: -0.008em; }
+    .pull-quote .attr { font-size: 13px; color: rgba(255,255,255,0.55); }
+    .pull-quote .attr strong { display: block; color: rgba(255,255,255,0.8); font-family: var(--font-display); font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+
     /* ---------- Asks (what we want to recreate) ---------- */
     .asks {
       padding: 96px 0 0;
@@ -489,6 +497,22 @@ const html = `<style>
           </div>
         </a>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="pull-quote">
+    <div class="container">
+      <div class="frame">
+        <div class="bar"></div>
+        <div>
+          <blockquote>&ldquo;I am very grateful to the staff at CPE Property Management Solutions. Joel has been exceptional in handling our financial accounts with his superb professionalism, knowledge and reliability. Sarah, our property manager, is committed to resolving issues quickly and judiciously. As president of Foxwood II Condominium Association, I could not ask for two better people to work and cooperate with.&rdquo;</blockquote>
+          <div class="attr">
+            <strong>David Boyle</strong>
+            Board President, Foxwood II Condominium Association &middot; CPE Property Management Solutions
+          </div>
+        </div>
       </div>
     </div>
   </section>
