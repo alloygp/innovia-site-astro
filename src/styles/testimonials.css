@@ -80,7 +80,7 @@ body { background: var(--innovia-navy); color: rgba(255,255,255,0.78); }
 /* Filter band */
 .filter-sticky {
   position: sticky;
-  top: 72px;
+  top: 0;
   z-index: 90;
   background: rgba(15,36,71,0.96);
   backdrop-filter: blur(12px);

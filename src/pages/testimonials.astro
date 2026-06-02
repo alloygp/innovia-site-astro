@@ -283,7 +283,22 @@ const html = `
     </div>
   </section>
 
-  <script>
+  <!-- FOOTER -->
+  
+
+
+  
+`;
+---
+<BaseLayout
+  title="Testimonials &amp; Member Voices · Innovia Co-op"
+  description="Testimonials &amp; Member Voices · Innovia Co-op"
+  ogImage="/assets/og/option-1-type-led.png"
+  ctaLabel="Schedule a Conversation"
+  ctaHref="/schedule-a-conversation/"
+>
+  <Fragment set:html={html} />
+  <script is:inline>
     (function() {
       var activeVoice = 'all';
       var activeTopic = 'all';
@@ -315,20 +330,4 @@ const html = `
       });
     })();
   </script>
-
-  <!-- FOOTER -->
-  
-
-
-  
-`;
----
-<BaseLayout
-  title="Testimonials &amp; Member Voices · Innovia Co-op"
-  description="Testimonials &amp; Member Voices · Innovia Co-op"
-  ogImage="/assets/og/option-1-type-led.png"
-  ctaLabel="Schedule a Conversation"
-  ctaHref="/schedule-a-conversation/"
->
-  <Fragment set:html={html} />
 </BaseLayout>
