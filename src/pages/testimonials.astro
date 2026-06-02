@@ -299,7 +299,19 @@ const html = `
 >
   <Fragment set:html={html} />
   <script is:inline>
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track header visual position in real time so the sticky filter
+      // flows with the header slide-in/slide-out animation.
+      var header = document.querySelector('.site-header');
+      var filterSticky = document.querySelector('.filter-sticky');
+      if (header && filterSticky) {
+        (function sync() {
+          filterSticky.style.top = Math.max(0, header.getBoundingClientRect().bottom) + 'px';
+          requestAnimationFrame(sync);
+        })();
+      }
+
+      // Filters
       var activeVoice = 'all';
       var activeTopic = 'all';
 
@@ -328,6 +340,6 @@ const html = `
           applyFilters();
         });
       });
-    })();
+    });
   </script>
 </BaseLayout>
