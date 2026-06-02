@@ -109,47 +109,35 @@ const html = `<style>
     }
     .map-band .map {
       position: relative;
-      background: #FBFAF6;
-      padding: 24px;
-      min-height: 420px;
+      min-height: 460px;
       overflow: hidden;
     }
-    .map-band .map .grid {
-      position: absolute; inset: 24px;
-      background-image:
-        linear-gradient(rgba(24,51,94,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24,51,94,0.06) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .map-band .map svg.us {
-      width: 100%; height: auto;
-      position: relative; z-index: 1; display: block;
-      max-height: 440px;
-    }
-    .map-band .map .pin { transition: r .2s, fill .2s; cursor: pointer; }
-    .map-band .map .pin:hover { fill: var(--innovia-green-deep); }
-    .map-band .map .pin.active { fill: var(--innovia-green); }
-    .map-band .map .pin-label {
-      font-family: var(--font-display); font-size: 11px;
-      font-weight: 600; fill: var(--innovia-navy);
-      text-anchor: middle;
+    #innovia-map {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
     }
     .map-band .map .label {
-      position: absolute; top: 18px; left: 24px;
+      position: absolute; top: 12px; left: 14px;
       font-family: var(--font-mono); font-size: 11px;
-      color: var(--fg-3); letter-spacing: 0.04em;
-      z-index: 2;
+      color: #555; letter-spacing: 0.04em;
+      z-index: 10;
+      background: rgba(255,255,255,0.88);
+      padding: 4px 8px;
+      pointer-events: none;
     }
     .map-band .map .legend {
-      position: absolute; bottom: 14px; right: 18px;
+      position: absolute; bottom: 14px; right: 14px;
       display: flex; gap: 16px; align-items: center;
       font-family: var(--font-mono); font-size: 11px;
-      color: var(--fg-3); z-index: 2;
+      color: #555; z-index: 10;
+      background: rgba(255,255,255,0.88);
+      padding: 4px 10px;
+      pointer-events: none;
     }
     .map-band .map .legend .dot {
       width: 8px; height: 8px; border-radius: 50%;
-      display: inline-block; background: var(--innovia-green-deep);
+      display: inline-block; background: #18335E;
       margin-right: 6px;
     }
     .map-band .stats {
@@ -680,39 +668,11 @@ const html = `<style>
     <div class="container">
       <div class="frame">
         <div class="map">
-          <div class="grid"></div>
           <span class="label">Member Footprint · Q1 2026</span>
-          <svg class="us" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
-            <path d="M 130 130 L 270 90 L 380 95 L 420 105 L 480 100 L 540 95 L 600 100 L 640 105 L 720 95 L 800 110 L 820 150 L 800 200 L 780 240 L 760 290 L 730 330 L 700 360 L 670 380 L 620 390 L 570 380 L 510 360 L 460 350 L 410 360 L 360 380 L 320 390 L 280 380 L 240 360 L 200 330 L 170 300 L 150 260 L 130 200 Z"
-                  fill="none" stroke="rgba(24,51,94,0.18)" stroke-width="1.5" stroke-linejoin="round"/>
-            <g>
-              <circle class="pin" cx="200" cy="270" r="6" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="200" y="295">CA · 12</text>
-              <circle class="pin" cx="640" cy="345" r="9" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="640" y="370">FL · 14</text>
-              <circle class="pin" cx="450" cy="310" r="7" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="450" y="335">TX · 10</text>
-              <circle class="pin" cx="640" cy="260" r="5" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="640" y="245">NC · 7</text>
-              <circle class="pin active" cx="730" cy="220" r="8" fill="var(--innovia-green)"/>
-              <text class="pin-label" x="730" y="205">NY · 9</text>
-              <circle class="pin" cx="520" cy="200" r="5" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="520" y="185">IL · 6</text>
-              <circle class="pin" cx="380" cy="230" r="4" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="380" y="215">CO · 5</text>
-              <circle class="pin" cx="700" cy="300" r="4" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="700" y="320">GA · 5</text>
-              <circle class="pin" cx="270" cy="180" r="3" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="270" y="165">WA · 3</text>
-              <circle class="pin" cx="610" cy="200" r="3" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="610" y="185">OH · 4</text>
-              <circle class="pin" cx="280" cy="320" r="3" fill="var(--innovia-green-deep)"/>
-              <text class="pin-label" x="280" y="345">AZ · 3</text>
-            </g>
-          </svg>
+          <div id="innovia-map"></div>
           <div class="legend">
-            <span><span class="dot"></span>Innovia-backed Company</span>
-            <span>Size · No. of companies</span>
+            <span><span class="dot"></span>Innovia member</span>
+            <span>Size = no. of companies</span>
           </div>
         </div>
 
@@ -973,4 +933,68 @@ const html = `<style>
   ctaHref="#request"
 >
   <Fragment set:html={html} />
+  <script is:inline>
+    (function () {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+
+      var s = document.createElement('script');
+      s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      s.onload = function () {
+        var map = L.map('innovia-map', {
+          center: [38.5, -96],
+          zoom: 4,
+          scrollWheelZoom: false,
+          zoomControl: true,
+          attributionControl: true
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/">CARTO</a>',
+          maxZoom: 18
+        }).addTo(map);
+
+        var members = [
+          { lat: 36.12, lng: -119.68, name: 'California',      abbr: 'CA', count: 12 },
+          { lat: 27.99, lng: -81.76,  name: 'Florida',         abbr: 'FL', count: 14 },
+          { lat: 31.50, lng: -99.44,  name: 'Texas',           abbr: 'TX', count: 10 },
+          { lat: 35.63, lng: -79.80,  name: 'North Carolina',  abbr: 'NC', count: 7  },
+          { lat: 42.82, lng: -75.54,  name: 'New York',        abbr: 'NY', count: 9  },
+          { lat: 40.35, lng: -88.99,  name: 'Illinois',        abbr: 'IL', count: 6  },
+          { lat: 39.11, lng: -105.35, name: 'Colorado',        abbr: 'CO', count: 5  },
+          { lat: 32.69, lng: -83.44,  name: 'Georgia',         abbr: 'GA', count: 5  },
+          { lat: 47.54, lng: -121.83, name: 'Washington',      abbr: 'WA', count: 3  },
+          { lat: 40.29, lng: -82.79,  name: 'Ohio',            abbr: 'OH', count: 4  },
+          { lat: 33.73, lng: -111.43, name: 'Arizona',         abbr: 'AZ', count: 3  },
+          { lat: 39.05, lng: -76.64,  name: 'Maryland',        abbr: 'MD', count: 2  },
+          { lat: 40.59, lng: -77.20,  name: 'Pennsylvania',    abbr: 'PA', count: 3  },
+          { lat: 38.44, lng: -92.33,  name: 'Missouri',        abbr: 'MO', count: 3  }
+        ];
+
+        members.forEach(function (m) {
+          var r = Math.round(Math.max(14, Math.min(26, 10 + m.count * 1.2)));
+          var size = r * 2;
+          var icon = L.divIcon({
+            className: '',
+            html: '<div style="width:' + size + 'px;height:' + size + 'px;background:#95D031;border:2.5px solid #18335E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;color:#18335E;font-family:system-ui,sans-serif;box-shadow:0 2px 6px rgba(0,0,0,0.22);">' + m.count + '</div>',
+            iconSize: [size, size],
+            iconAnchor: [r, r],
+            popupAnchor: [0, -r - 4]
+          });
+
+          L.marker([m.lat, m.lng], { icon: icon })
+            .addTo(map)
+            .bindPopup(
+              '<div style="font-family:system-ui,sans-serif;min-width:120px;">' +
+              '<strong style="color:#18335E;font-size:14px;">' + m.name + '</strong><br>' +
+              '<span style="color:#555;font-size:13px;">' + m.count + ' Innovia member' + (m.count !== 1 ? 's' : '') + '</span>' +
+              '</div>'
+            );
+        });
+      };
+      document.head.appendChild(s);
+    })();
+  </script>
 </BaseLayout>
