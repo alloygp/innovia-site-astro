@@ -445,7 +445,7 @@ body { background: var(--innovia-navy); color: rgba(255,255,255,0.78); }
 }
 .methodology .frame {
   display: grid; grid-template-columns: 1.2fr 1fr;
-  gap: 80px; align-items: stretch;
+  gap: 56px; align-items: stretch;
 }
 .methodology h2 {
   color: var(--innovia-navy);
