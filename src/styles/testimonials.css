@@ -459,7 +459,6 @@ body { background: var(--innovia-navy); color: rgba(255,255,255,0.78); }
   font-size: 16px; line-height: 1.65;
   color: var(--fg-2);
   margin: 20px 0 0;
-  max-width: 52ch;
 }
 .methodology .rules {
   display: grid; grid-template-columns: repeat(2, 1fr);
