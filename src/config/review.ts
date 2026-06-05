@@ -19,6 +19,7 @@ export const REVIEW_ITEMS: ReviewItem[] = [
   { label: 'Vendor Program', path: '/for-cams/three-pillars/vendor-program/', review: true },
   { label: 'Find a Management Company', path: '/find-a-management-company/', review: true },
   { label: 'Texas', path: '/find-a-management-company/texas/', review: true },
+  { label: 'Phoenix', path: '/find-a-management-company/phoenix/', review: true },
   { label: 'HOA Management Services', path: '/hoa-management-services/', review: true },
   { label: 'Switching HOA Management', path: '/solutions/switching-hoa-management/', review: true },
   { label: 'Board Education', path: '/board-education/', review: true },
@@ -28,9 +29,9 @@ export const REVIEW_ITEMS: ReviewItem[] = [
   { label: 'Testimonials', path: '/testimonials/', review: true },
   { label: 'Member Spotlights', path: '/member-spotlights/', review: true },
   { label: 'Mariner and Vail', path: '/member-spotlights/mariner-and-vail/', review: true },
-  { label: 'Partners', path: '/partners/', review: true },
   { label: 'Summit', path: '/summit/', review: true },
   { label: 'Summit 2026', path: '/summit/2026/', review: true },
   { label: 'Schedule a Conversation', path: '/schedule-a-conversation/', review: true },
   { label: 'Contact', path: '/contact/', review: true },
+  { label: 'Charter Offer', path: '/charter-offer/', review: true },
 ];
