@@ -15,7 +15,6 @@ export const REVIEW_ITEMS: ReviewItem[] = [
   { label: 'Why Innovia', path: '/for-cams/why-innovia/', review: true },
   { label: 'Three Pillars', path: '/for-cams/three-pillars/', review: true },
   { label: 'Elite Community', path: '/for-cams/three-pillars/elite-community/', review: true },
-  { label: 'Business Growth', path: '/for-cams/three-pillars/business-growth/', review: true },
   { label: 'Vendor Program', path: '/for-cams/three-pillars/vendor-program/', review: true },
   { label: 'Find a Management Company', path: '/find-a-management-company/', review: true },
   { label: 'Texas', path: '/find-a-management-company/texas/', review: true },
