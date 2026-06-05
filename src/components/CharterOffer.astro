@@ -1,0 +1,702 @@
+---
+// The Innovia Charter — founding-member offer (3 partners, first 90 days free, one CAM per metro).
+// Ported from the working HTML prototype. Tweaks/React removed; the chosen variant is set
+// via the body data-* attributes in the page route (charter-offer.astro).
+import "../styles/tokens.css";
+import "../styles/site.css";
+import "../styles/charter-offer.css";
+---
+
+<!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container row">
+      <a href="/" class="brand">
+        <img src="/assets/logos/innovia-white-green.png" alt="Innovia Co-op" style="height: 38px;">
+      </a>
+      <nav>
+        <a href="/why-join">For CAMs</a>
+        <a href="/charter-offer" class="active">The Charter</a>
+        <a href="/about">About</a>
+        <a href="/summit">Summit</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="tel:+18885550192" class="phone">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>(888) 555-0192</span>
+        </a>
+        <a href="#start" class="btn btn-primary reveal-cta">
+          Start the Conversation
+          <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ URGENCY BAR (sticky strip below the nav) ============ -->
+  <div class="urgency-bar">
+    <div class="container inner">
+      <span class="ping"></span>
+      <span><strong class="placeholder placeholder-inline">7 of 24</strong> charter metros still open for the founding cohort</span>
+      <a href="#metros" class="u-cta">See your market
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"><img src="/assets/photos/member-introductions.jpg" alt=""></div>
+    <div class="container">
+      <div class="layout">
+        <div class="pitch">
+          <div class="crumb">
+            <span class="dot"></span>
+            The Innovia Charter
+            <span class="sep">/</span>
+            One seat per metro
+            <span class="sep">/</span>
+            By introduction
+          </div>
+
+          <!-- FRAMING A — CHALLENGE -->
+          <div class="frame-copy f-challenge">
+            <h1>Do you have what it takes to <em>own your market?</em></h1>
+            <p class="lede">We are inviting <strong>one</strong> community management company in each metro into the founding charter cohort &mdash; and backing them with the full Innovia stack. <strong>Innovia membership, First Citizens Bank, and Alloy Growth Partners.</strong> The first 90 days, free. The only question is whether you&rsquo;re the operator who takes it.</p>
+          </div>
+
+          <!-- FRAMING B — INVITATION -->
+          <div class="frame-copy f-invitation">
+            <h1>Your most valuable <em>90 days</em> in business.</h1>
+            <p class="lede">Three forces behind your firm at once &mdash; <strong>Innovia membership, First Citizens Bank, and Alloy Growth Partners</strong> &mdash; free for your first 90 days. We open <strong>one charter seat per metro</strong>. This is the invitation to take yours.</p>
+          </div>
+
+          <div class="actions">
+            <a href="#start" class="btn btn-primary">Start the Conversation
+              <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+            <a href="#stack" class="btn btn-outline-light">See what you get</a>
+          </div>
+
+          <div class="reassure">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Confidential conversation &middot; no obligation &middot; founding cohort only
+          </div>
+        </div>
+
+        <!-- OFFER TICKET -->
+        <div class="ticket">
+          <span class="flag">Charter member offer</span>
+          <div class="t-head">
+            <span class="lbl">The powerhouse</span>
+            <h2>Three forces. Ninety days. Zero cost.</h2>
+            <p>Everything a charter member activates on day one &mdash; and what it would normally cost to run.</p>
+          </div>
+          <div class="rows">
+            <div class="trow">
+              <div class="who">
+                <span class="wm">innovia<span style="color:var(--innovia-green)"> membership</span></span>
+                <span class="role">The cooperative</span>
+              </div>
+              <div class="val">
+                <div class="was placeholder placeholder-inline">$3,600/qtr</div>
+                <div class="now">Free &middot; 90 days</div>
+              </div>
+            </div>
+            <div class="trow">
+              <div class="who">
+                <span class="wm bank">First Citizens Bank</span>
+                <span class="role">Banking &amp; treasury</span>
+              </div>
+              <div class="val">
+                <div class="was placeholder placeholder-inline">$1,400/qtr</div>
+                <div class="now">Free &middot; 90 days</div>
+              </div>
+            </div>
+            <div class="trow">
+              <div class="who">
+                <span class="wm">Alloy <span class="lt" style="color:var(--innovia-green)">Growth</span></span>
+                <span class="role">Brand &amp; growth program</span>
+              </div>
+              <div class="val">
+                <div class="was placeholder placeholder-inline">$19,500</div>
+                <div class="now">Free &middot; 90 days</div>
+              </div>
+            </div>
+          </div>
+          <div class="t-total">
+            <div class="l">
+              <span class="k">Launch value</span>
+              <span class="v placeholder placeholder-inline">$24,500<span class="pct">+</span></span>
+            </div>
+            <div class="r">
+              <div class="now">$0</div>
+              <div class="span">Your first 90 days</div>
+            </div>
+          </div>
+          <div class="t-foot">Figures illustrative &mdash; confirm final program values before publishing.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE STACK ============ -->
+  <section class="stack" id="stack">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow"><span class="rule-mini"></span>The powerhouse, unpacked</div>
+          <h2 style="margin-top:14px;">One firm. Three forces working in the same direction.</h2>
+        </div>
+        <p>Most firms assemble these one at a time, over years, and pay full freight for each. A charter member switches all three on at once &mdash; and runs the first 90 days on us.</p>
+      </div>
+
+      <div class="powers">
+        <!-- INNOVIA -->
+        <div class="power">
+          <div class="mark">
+            <span class="ix">Force 01</span>
+            <span class="plate"><img class="partner-logo" src="/assets/logos/innovia-navy.png" alt="Innovia Co-op"></span>
+            <span class="kind">Membership &middot; the cooperative</span>
+          </div>
+          <div class="body">
+            <h3>The collective buying power of the country&rsquo;s best independents.</h3>
+            <p>Membership in Innovia is the spine of the stack. You join a national cooperative of independent CAM companies and immediately tap what no single firm negotiates alone &mdash; peer counsel, a shared vendor program, and real industry benchmarks.</p>
+            <ul class="gets">
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Elite Community &mdash; a peer council of vetted operators</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Vendor Program &mdash; pre-negotiated terms on the line items you already run</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Business Growth &mdash; a national lead engine that routes board inquiries to you</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Benchmarks across the cooperative &mdash; the median, not a guess</li>
+            </ul>
+          </div>
+          <div class="price">
+            <span class="was-lbl">Member dues</span>
+            <div class="was placeholder placeholder-inline">$3,600 / quarter</div>
+            <div class="free-badge"><span class="n">$0</span><span class="u">first 90 days</span></div>
+            <p class="term">Dues waived through your charter window. Full member benefits live from day one.</p>
+          </div>
+        </div>
+
+        <!-- FIRST CITIZENS BANK -->
+        <div class="power">
+          <div class="mark">
+            <span class="ix">Force 02</span>
+            <span class="plate"><img class="partner-logo fc" src="/assets/logos/first-citizens-bank.png" alt="First Citizens Bank"></span>
+            <span class="kind">Banking &amp; treasury</span>
+          </div>
+          <div class="body">
+            <h3>Association banking built around how a CAM company actually operates.</h3>
+            <p>A banking relationship purpose-built for community management &mdash; operating and reserve accounts, dues collection, and treasury tools, with a dedicated banker who understands association cash flow. <span class="placeholder placeholder-inline">Confirm the exact First Citizens service set with the bank before publishing.</span></p>
+            <ul class="gets">
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Operating &amp; reserve account structure</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Dues collection &amp; lockbox</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Treasury &amp; cash-management tools</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A dedicated banker, not a call center</li>
+            </ul>
+          </div>
+          <div class="price">
+            <span class="was-lbl">Service &amp; treasury fees</span>
+            <div class="was placeholder placeholder-inline">$1,400 / quarter</div>
+            <div class="free-badge"><span class="n">$0</span><span class="u">first 90 days</span></div>
+            <p class="term">Standard service fees waived for the charter window while accounts are stood up.</p>
+          </div>
+        </div>
+
+        <!-- ALLOY GROWTH PARTNERS -->
+        <div class="power">
+          <div class="mark">
+            <span class="ix">Force 03</span>
+            <span class="plate"><img class="partner-logo alloy" src="/assets/logos/alloy-growth.svg" alt="Alloy Growth Partners"></span>
+            <span class="kind">Brand &amp; growth program</span>
+          </div>
+          <div class="body">
+            <h3>A growth engine pointed at your metro &mdash; built, funded, and handed to you.</h3>
+            <p>Alloy Growth Partners doesn&rsquo;t hand you advice; they build the machine. A dedicated, market-targeted presence goes live for your firm, with paid demand behind it and a written plan you keep.</p>
+            <ul class="gets">
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A dedicated market-targeting landing page</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A managed PPC budget driving qualified board demand</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A local market takeover campaign</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A custom CAM growth blueprint &mdash; yours to keep, with options to extend</li>
+            </ul>
+          </div>
+          <div class="price">
+            <span class="was-lbl">Build, media &amp; blueprint</span>
+            <div class="was placeholder placeholder-inline">$19,500 value</div>
+            <div class="free-badge"><span class="n">$0</span><span class="u">first 90 days</span></div>
+            <p class="term">Built and managed during the charter window. Extend on your terms after 90 days.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sumline">
+        <div class="l">
+          <span class="k">What it adds up to</span>
+          <div class="v"><span class="placeholder placeholder-inline">$24,500+</span> of launch value, working for one firm in your metro &mdash; <em>$0 for 90 days.</em></div>
+        </div>
+        <div class="r">
+          <a href="#start" class="btn btn-primary">Claim your metro
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUALIFICATION STACK ============ -->
+  <div class="qual-stack">
+
+    <!-- SELF-ASSESSMENT -->
+    <section class="fit" id="fit">
+      <div class="container">
+        <div class="head">
+          <div class="eyebrow on-dark"><span class="rule-mini"></span>Does this sound like you?</div>
+          <h2 style="margin-top:14px;">The charter isn&rsquo;t for everyone. <em>It might be for you.</em></h2>
+          <p>We built this offer for a specific kind of operator. Read the six statements below. Check the ones that ring true &mdash; the more that do, the more this was made for your firm.</p>
+        </div>
+        <div class="grid" id="fitGrid">
+          <button type="button" class="stmt" aria-pressed="false">
+            <span class="box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="txt"><strong>You own the firm.</strong> The decision to grow is yours to make &mdash; not three layers up.</span>
+          </button>
+          <button type="button" class="stmt" aria-pressed="false">
+            <span class="box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="txt"><strong>You&rsquo;re the best in your market.</strong> Or you intend to be &mdash; and you can prove the work behind it.</span>
+          </button>
+          <button type="button" class="stmt" aria-pressed="false">
+            <span class="box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="txt"><strong>You won&rsquo;t sell to a national.</strong> You chose independence on purpose and you mean to keep it.</span>
+          </button>
+          <button type="button" class="stmt" aria-pressed="false">
+            <span class="box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="txt"><strong>You want leverage, not a logo.</strong> Better vendor terms, real banking, and demand &mdash; not another badge.</span>
+          </button>
+          <button type="button" class="stmt" aria-pressed="false">
+            <span class="box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="txt"><strong>You&rsquo;ll show up.</strong> The cooperative gives most to the members who put the most in.</span>
+          </button>
+          <button type="button" class="stmt" aria-pressed="false">
+            <span class="box"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <span class="txt"><strong>You move when it&rsquo;s right.</strong> A founding seat closes the moment another firm in your metro takes it.</span>
+          </button>
+        </div>
+        <div class="tally">
+          <div class="meter"><span id="fitCount">0</span> / 6</div>
+          <div class="verdict" id="fitVerdict">Check the statements that sound like your firm.</div>
+          <a href="#start" class="btn btn-primary">Start the Conversation
+            <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE BAR / SCORECARD -->
+    <section class="bar" id="bar">
+      <div class="container">
+        <div class="head">
+          <div>
+            <div class="eyebrow"><span class="rule-mini"></span>The bar to clear</div>
+            <h2 style="margin-top:14px;">What it takes to hold a charter seat.</h2>
+          </div>
+          <p>A charter seat carries the full weight of the Innovia name plus two partners in your market. We&rsquo;re selective on purpose. Here is the bar we hold every candidate to.</p>
+        </div>
+        <div class="card-rows">
+          <div class="crit">
+            <span class="n">01</span>
+            <div>
+              <h4>Owner-operated</h4>
+              <div class="req">Founder or principal at the table</div>
+            </div>
+            <p>Decisions on growth, banking, and brand are made by the person we&rsquo;re talking to &mdash; not escalated to a parent company.</p>
+          </div>
+          <div class="crit">
+            <span class="n">02</span>
+            <div>
+              <h4>Established book</h4>
+              <div class="req placeholder placeholder-inline">~1,000+ units under management</div>
+            </div>
+            <p>Enough scale that the cooperative&rsquo;s leverage moves real money &mdash; and enough operating maturity to absorb growth well.</p>
+          </div>
+          <div class="crit">
+            <span class="n">03</span>
+            <div>
+              <h4>Reputation that holds up</h4>
+              <div class="req">Reference-checked with boards &amp; peers</div>
+            </div>
+            <p>We route a candidate through existing members and ask boards directly. The Innovia name only goes on firms that earn it.</p>
+          </div>
+          <div class="crit">
+            <span class="n">04</span>
+            <div>
+              <h4>Independent &mdash; and staying that way</h4>
+              <div class="req">Not on an acquisition path</div>
+            </div>
+            <p>The charter rewards firms committed to independence. If you&rsquo;re planning to sell to a national, this isn&rsquo;t the right fit.</p>
+          </div>
+          <div class="crit">
+            <span class="n">05</span>
+            <div>
+              <h4>Open market in your metro</h4>
+              <div class="req">One seat, first qualified firm</div>
+            </div>
+            <p>We seat a single charter member per metro. If your market is still open and you clear the bar, the seat is yours to take.</p>
+          </div>
+        </div>
+        <div class="note">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Meet most of these and the conversation is worth having. We&rsquo;ll be honest about fit on the first call.
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ ONE SEAT PER METRO ============ -->
+  <section class="market" id="metros">
+    <div class="container">
+      <div class="frame">
+        <div class="copy">
+          <div class="eyebrow on-dark"><span class="rule-mini"></span>One seat per market</div>
+          <h2 style="margin-top:14px;">We back <em>one</em> firm per metro. Then we close it.</h2>
+          <p>The whole point is leverage you don&rsquo;t share with the firm across town. So the charter seats exactly one community management company in each metro &mdash; flexible to how a market is really drawn &mdash; and the demand engine works for them alone.</p>
+          <div class="why">
+            <div class="w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <p><strong>No internal competition.</strong> Co-op vendor leverage and the growth program point at your firm, not a roomful of locals.</p>
+            </div>
+            <div class="w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <p><strong>The market is yours to own.</strong> Board demand we generate in your metro routes to one charter member &mdash; you.</p>
+            </div>
+            <div class="w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <p><strong>First qualified firm holds it.</strong> When a seat is claimed, it&rsquo;s gone &mdash; the next firm in that metro waits for renewal.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="board">
+          <div class="b-head">
+            <span class="t">Charter availability</span>
+            <span class="live"><span class="d"></span>Founding cohort</span>
+          </div>
+          <div class="rows">
+            <div class="m">
+              <span class="city">Phoenix <span class="sub">AZ metro</span></span>
+              <span class="status open"><span class="d"></span>Open</span>
+            </div>
+            <div class="m">
+              <span class="city">Charlotte <span class="sub">NC metro</span></span>
+              <span class="status open"><span class="d"></span>Open</span>
+            </div>
+            <div class="m">
+              <span class="city">Denver <span class="sub">CO metro</span></span>
+              <span class="status talking"><span class="d"></span>In conversation</span>
+            </div>
+            <div class="m">
+              <span class="city">Tampa &ndash; St. Pete <span class="sub">FL metro</span></span>
+              <span class="status open"><span class="d"></span>Open</span>
+            </div>
+            <div class="m">
+              <span class="city">Dallas &ndash; Fort Worth <span class="sub">TX metro</span></span>
+              <span class="status claimed"><span class="d"></span>Claimed</span>
+            </div>
+            <div class="m">
+              <span class="city">Las Vegas <span class="sub">NV metro</span></span>
+              <span class="status open"><span class="d"></span>Open</span>
+            </div>
+            <div class="m">
+              <span class="city">Nashville <span class="sub">TN metro</span></span>
+              <span class="status talking"><span class="d"></span>In conversation</span>
+            </div>
+            <div class="m">
+              <span class="city">Raleigh &ndash; Durham <span class="sub">NC metro</span></span>
+              <span class="status claimed"><span class="d"></span>Claimed</span>
+            </div>
+          </div>
+          <div class="b-foot">
+            <div class="legend">
+              <span><span class="d" style="background:var(--innovia-green)"></span>Open</span>
+              <span><span class="d" style="background:#E8C75A"></span>In conversation</span>
+              <span><span class="d" style="background:rgba(255,255,255,0.3)"></span>Claimed</span>
+            </div>
+            <a href="#start" class="link-arrow on-dark">Ask about your metro
+              <svg class="arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:22px; font-family:var(--font-mono); font-size:11px; color:rgba(255,255,255,0.4); letter-spacing:0.04em;" class="placeholder placeholder-inline">Sample availability board &mdash; wire to live cohort data before launch.</div>
+    </div>
+  </section>
+
+  <!-- ============ HOW THE 90 DAYS WORKS ============ -->
+  <section class="how90 tight">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow" style="color:var(--innovia-navy)"><span class="rule-mini"></span>How the 90 days works</div>
+          <h2 style="margin-top:14px;">From first call to all three live.</h2>
+        </div>
+        <p>No drawn-out onboarding. If there&rsquo;s a fit and your metro is open, the full stack switches on together and the clock starts.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="when">Step 01 &middot; Week 00</div>
+          <h4>The conversation</h4>
+          <p>A candid call with a member-owner. We check the bar, confirm your metro is open, and tell you honestly whether the charter fits.</p>
+        </div>
+        <div class="step">
+          <div class="when">Step 02 &middot; Weeks 01&ndash;02</div>
+          <h4>Charter onboarding</h4>
+          <p>Membership activates, First Citizens stands up your accounts, and Alloy starts building your market page and campaign &mdash; in parallel.</p>
+        </div>
+        <div class="step">
+          <div class="when">Step 03 &middot; Days 01&ndash;90</div>
+          <h4>Ninety days, on us</h4>
+          <p>All three forces run for your firm at zero cost. At day 90 you continue on standard member terms &mdash; or you don&rsquo;t. No trap.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSE / FORM ============ -->
+  <section class="close" id="start">
+    <div class="container">
+      <div class="layout">
+        <div class="pitch">
+          <div class="eyebrow on-dark"><span class="num" style="color:rgba(255,255,255,0.5)">No. 07</span><span class="rule-mini"></span>Start the Conversation</div>
+          <h2>Find out if the seat in your metro is <em>still open.</em></h2>
+          <p>Tell us about your firm. If your market is open and you clear the bar, a member-owner will reach out within five business days &mdash; not a salesperson, an operator who runs a company like yours.</p>
+          <div class="recap">
+            <div class="r"><span class="ic"></span><span class="nm">innovia membership</span><span class="tg">Cooperative</span><span class="free">90 days free</span></div>
+            <div class="r"><span class="ic"></span><span class="nm bank">First Citizens Bank</span><span class="tg">Banking</span><span class="free">90 days free</span></div>
+            <div class="r"><span class="ic"></span><span class="nm">Alloy Growth Partners</span><span class="tg">Growth</span><span class="free">90 days free</span></div>
+          </div>
+        </div>
+
+        <form class="lead-form" onsubmit="event.preventDefault(); this.querySelector('button[type=submit]').textContent='Thanks — we&rsquo;ll be in touch within 5 business days';">
+          <div class="form-head">
+            <span class="form-label">Charter inquiry</span>
+            <span class="form-count">~2 min</span>
+          </div>
+          <fieldset>
+            <legend>About you</legend>
+            <div class="grid-2">
+              <input type="text" placeholder="First name" aria-label="First name" autocomplete="given-name" required>
+              <input type="text" placeholder="Last name" aria-label="Last name" autocomplete="family-name" required>
+            </div>
+            <input type="email" placeholder="Work email" aria-label="Work email" autocomplete="email" required>
+          </fieldset>
+          <fieldset>
+            <legend>About your firm</legend>
+            <div class="grid-2">
+              <input type="text" placeholder="Company name" aria-label="Company name" autocomplete="organization" required>
+              <input type="text" placeholder="Your metro (city, state)" aria-label="Your metro" autocomplete="address-level2" required>
+            </div>
+            <label class="field">Units under management
+              <select required>
+                <option value="">Choose a range</option>
+                <option>Under 1,000</option>
+                <option>1,000&ndash;5,000</option>
+                <option>5,000&ndash;15,000</option>
+                <option>15,000&ndash;40,000</option>
+                <option>Over 40,000</option>
+              </select>
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Which of these sound like you? <span class="opt">Select any</span></legend>
+            <div class="fit-checks">
+              <label class="fit-check">
+                <input type="checkbox" data-fit="0" aria-label="I own the firm">
+                <span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span class="lbl">I own the firm</span>
+              </label>
+              <label class="fit-check">
+                <input type="checkbox" data-fit="1" aria-label="Best in my market, or aiming to be">
+                <span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span class="lbl">Best in my market &mdash; or aiming to be</span>
+              </label>
+              <label class="fit-check">
+                <input type="checkbox" data-fit="2" aria-label="Staying independent">
+                <span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span class="lbl">Staying independent &mdash; not selling to a national</span>
+              </label>
+              <label class="fit-check">
+                <input type="checkbox" data-fit="3" aria-label="Want leverage, not a logo">
+                <span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span class="lbl">Want leverage, not a logo</span>
+              </label>
+              <label class="fit-check">
+                <input type="checkbox" data-fit="4" aria-label="I will show up for the cooperative">
+                <span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span class="lbl">I&rsquo;ll show up for the cooperative</span>
+              </label>
+              <label class="fit-check">
+                <input type="checkbox" data-fit="5" aria-label="Ready to move when the timing is right">
+                <span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                <span class="lbl">Ready to move when the timing&rsquo;s right</span>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>The conversation</legend>
+            <label class="field">What&rsquo;s prompting your interest? <span class="opt">Optional</span>
+              <textarea rows="3" placeholder="Growth, vendor terms, banking, owning your market — what&rsquo;s on your mind"></textarea>
+            </label>
+          </fieldset>
+          <div class="submit-row">
+            <small>Confidential. Your details stay inside the cooperative office &mdash; never sold or shared with vendors.</small>
+            <button type="submit">Start the Conversation
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="grid">
+        <div class="brand">
+          <img src="/assets/logos/innovia-white-green.png" alt="Innovia Co-op">
+          <p>A national cooperative of independent community management companies. Owned by members. Built for the communities they serve.</p>
+          <div class="social">
+            <a href="https://www.linkedin.com/company/innovia-community-management-cooperative/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19a.66.66 0 000 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
+            <a href="https://x.com/innoviacoop" aria-label="X" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            <a href="https://www.facebook.com/InnoviaCoOp/" aria-label="Facebook" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h6>The Co-op</h6>
+          <ul>
+            <li><a href="/why-join">For CAMs</a></li>
+            <li><a href="/charter-offer">The Charter</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/founders">Our Founders</a></li>
+            <li><a href="/partners">Vendor Partners</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>For Boards</h6>
+          <ul>
+            <li><a href="/directory">Find a Management Company</a></li>
+            <li><a href="/board-education-how-it-works">How HOA Management Works</a></li>
+            <li><a href="/spotlight">Member Spotlights</a></li>
+            <li><a href="/testimonials">Testimonials</a></li>
+            <li><a href="/resources">Resources &amp; Guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6>Summit</h6>
+          <ul>
+            <li><a href="/summit">Summit 2027</a></li>
+            <li><a href="/summit-2026">2026 Archive</a></li>
+            <li><a href="https://summit.innoviaco-op.com" target="_blank" rel="noopener">Past Summits</a></li>
+          </ul>
+        </div>
+        <div class="newsletter">
+          <h6>Stay in the loop</h6>
+          <p>Industry intelligence, summit announcements, and member spotlights &mdash; about once a month.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); this.classList.add('submitted');">
+            <input type="email" placeholder="you@yourcompany.com" aria-label="Email address" required>
+            <button type="submit" aria-label="Subscribe">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </button>
+            <span class="newsletter-ok">Thanks &mdash; you&rsquo;re on the list.</span>
+          </form>
+        </div>
+      </div>
+      <div class="copy">
+        <span>&copy; 2026 Innovia Co-op. Member-owned. All rights reserved.</span>
+        <span class="colophon">We stand apart because we stand together.</span>
+      </div>
+    </div>
+  </footer>
+
+<script is:inline>
+    /* self-assessment tally */
+    (function () {
+      var grid = document.getElementById('fitGrid');
+      if (!grid) return;
+      var countEl = document.getElementById('fitCount');
+      var verdictEl = document.getElementById('fitVerdict');
+      var btns = Array.prototype.slice.call(grid.querySelectorAll('.stmt'));
+      var checks = Array.prototype.slice.call(document.querySelectorAll('.lead-form .fit-check input[data-fit]'));
+      function verdict(n) {
+        if (n === 0) return 'Check the statements that sound like your firm.';
+        if (n <= 2) return 'A few hit home. Worth a conversation to see if the rest could.';
+        if (n <= 4) return 'You&rsquo;re squarely the operator we built this for.';
+        if (n === 5) return '<strong>This was made for your firm.</strong> Your metro may not stay open long.';
+        return '<strong>You&rsquo;re exactly who the charter is for.</strong> Start the conversation before your seat is taken.';
+      }
+      function refresh() {
+        var n = btns.filter(function (b) { return b.getAttribute('aria-pressed') === 'true'; }).length;
+        countEl.textContent = n;
+        verdictEl.innerHTML = verdict(n);
+      }
+      function setOn(i, on) {
+        if (btns[i]) btns[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+        var cb = checks.filter(function (c) { return +c.getAttribute('data-fit') === i; })[0];
+        if (cb) {
+          cb.checked = on;
+          var wrap = cb.closest('.fit-check');
+          if (wrap) wrap.classList.toggle('is-on', on);
+        }
+        refresh();
+      }
+      btns.forEach(function (b, i) {
+        b.addEventListener('click', function () {
+          setOn(i, b.getAttribute('aria-pressed') !== 'true');
+        });
+      });
+      checks.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          setOn(+cb.getAttribute('data-fit'), cb.checked);
+        });
+      });
+    })();
+
+    /* header CTA: collapsed until the hero scrolls out of view, then slides in */
+    (function () {
+      var header = document.querySelector('.site-header');
+      var hero = document.getElementById('top');
+      if (!header || !hero || !('IntersectionObserver' in window)) {
+        if (header) header.classList.add('cta-shown');
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        if (!e.isIntersecting && e.boundingClientRect.top < 0) {
+          header.classList.add('cta-shown');
+        } else {
+          header.classList.remove('cta-shown');
+        }
+      }, { rootMargin: '-76px 0px 0px 0px', threshold: 0 });
+      io.observe(hero);
+    })();
+
+    /* scarcity bar eases up & back on scroll: hidden when scrolling down, shown near top / on scroll up */
+    (function () {
+      var bar = document.querySelector('.urgency-bar');
+      if (!bar) return;
+      var lastY = window.scrollY, ticking = false;
+      var SHOW_AT = 80, DELTA = 5;
+      function setCollapsed(on) {
+        bar.style.transform = on ? 'translateY(-100%)' : 'translateY(0)';
+      }
+      setCollapsed(false);
+      function upd() {
+        var y = window.scrollY;
+        if (y <= SHOW_AT) setCollapsed(false);
+        else if (y - lastY > DELTA) setCollapsed(true);
+        else if (lastY - y > DELTA) setCollapsed(false);
+        lastY = y; ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(upd); ticking = true; }
+      }, { passive: true });
+    })();
+</script>
