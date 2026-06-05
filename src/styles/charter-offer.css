@@ -1,4 +1,4 @@
-html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     [id] { scroll-margin-top: 96px; }
     body { background: var(--innovia-navy); color: rgba(255,255,255,0.78); }
@@ -67,18 +67,28 @@ html { scroll-behavior: smooth; }
     .ticket .trow .who .wm { font-family: var(--font-display); font-weight: 800; font-size: 15px; color: #fff; letter-spacing: -0.01em; line-height: 1; }
     .ticket .trow .who .wm.bank { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: 0.01em; }
     .ticket .trow .who .role { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .ticket .trow .who .tlogo { display: block; width: auto; align-self: flex-start; max-width: 100%; }
+    .ticket .trow .who .tlogo.innovia { height: 26px; }
+    .ticket .trow .who .tlogo.alloy { height: 24px; margin: -1px 0; }
+    .ticket .trow .who .tlogo.bank { height: 22px; }
     .ticket .trow .val { text-align: right; white-space: nowrap; }
     .ticket .trow .val .was { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.45); text-decoration: line-through; }
     .ticket .trow .val .now { font-family: var(--font-display); font-weight: 800; font-size: 15px; color: var(--innovia-green); letter-spacing: -0.01em; margin-top: 2px; }
-    .ticket .t-total { padding: 22px 28px; background: rgba(149,208,49,0.1); border-top: 1px dashed rgba(255,255,255,0.2); display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: end; }
+    .ticket .t-total { padding: 24px 28px 26px; background: rgba(149,208,49,0.07); border-top: 1px dashed rgba(255,255,255,0.2); display: block; }
     body[data-value-emph="partner"] .ticket .t-total { display: none; }
-    .ticket .t-total .l .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
-    .ticket .t-total .l .v { font-family: var(--font-display); font-weight: 900; font-size: clamp(30px, 3vw, 40px); color: #fff; letter-spacing: -0.03em; line-height: 1; margin-top: 6px; }
-    .ticket .t-total .l .v .pct { color: var(--innovia-green); font-size: 0.5em; vertical-align: super; }
-    .ticket .t-total .r { text-align: right; }
-    .ticket .t-total .r .now { font-family: var(--font-display); font-weight: 900; font-size: clamp(30px, 3vw, 40px); color: var(--innovia-green); letter-spacing: -0.03em; line-height: 1; }
-    .ticket .t-total .r .span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 5px; }
-    .ticket .t-foot { padding: 16px 28px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.04em; color: rgba(255,255,255,0.45); text-align: center; border-top: 1px solid rgba(255,255,255,0.08); }
+    .ticket .t-total .tt-value-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.14); }
+    .ticket .t-total .tt-value-row .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+    .ticket .t-total .tt-value-row .v { font-family: var(--font-display); font-weight: 700; font-size: 21px; color: #fff; letter-spacing: -0.02em; line-height: 1; }
+    .ticket .t-total .tt-rate { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 18px; }
+    .ticket .t-total .tt-rate .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--innovia-green); }
+    .ticket .t-total .tt-rate .lab .sub { display: block; font-family: var(--font-body); font-size: 12.5px; line-height: 1.4; letter-spacing: 0; text-transform: none; color: rgba(255,255,255,0.66); margin-top: 7px; max-width: 18ch; }
+    .ticket .t-total .tt-rate .price { text-align: right; line-height: 1; flex: 0 0 auto; }
+    .ticket .t-total .tt-rate .price .was { display: block; font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.42); text-decoration: line-through; margin-bottom: 7px; }
+    .ticket .t-total .tt-rate .price .now { font-family: var(--font-display); font-weight: 900; font-size: clamp(38px, 3.6vw, 50px); color: var(--innovia-green); letter-spacing: -0.035em; line-height: 0.92; }
+    .ticket .t-total .tt-rate .price .now .per { display: block; font-family: var(--font-mono); font-weight: 400; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-top: 8px; }
+    .ticket .t-total .tt-save { margin-top: 18px; display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: rgba(255,255,255,0.74); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 16px; }
+    .ticket .t-total .tt-save svg { color: var(--innovia-green); flex: 0 0 auto; }
+    .ticket .t-total .tt-save strong { color: var(--innovia-green); font-family: var(--font-display); font-weight: 800; letter-spacing: 0; }
 
     @media (max-width: 1080px) { .hero .layout { grid-template-columns: 1fr; gap: 48px; } .ticket { order: 2; } }
 
@@ -105,6 +115,26 @@ html { scroll-behavior: smooth; }
     .power .gets { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
     .power .gets li { display: grid; grid-template-columns: 20px 1fr; gap: 11px; font-size: 14px; line-height: 1.45; color: var(--fg-1); }
     .power .gets li svg { color: var(--innovia-green-deep); margin-top: 3px; flex: 0 0 auto; }
+
+    /* ---- Force 03 (Alloy) value cards — replaces the flat checklist with
+       compact, visual tiles. Kept deliberately quiet so the price card leads. ---- */
+    .power .value-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .power .vcard { display: flex; flex-direction: column; gap: 11px; background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--r-md); padding: 18px 18px 16px; transition: border-color .18s var(--ease-out), box-shadow .18s var(--ease-out), transform .18s var(--ease-out); }
+    .power .vcard:hover { border-color: var(--border-strong); box-shadow: var(--shadow-1); transform: translateY(-2px); }
+    .power .vcard .vtop { display: flex; align-items: center; gap: 11px; }
+    .power .vcard .vico { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: var(--innovia-green-soft); color: var(--innovia-green-deep); }
+    .power .vcard .vico svg { width: 18px; height: 18px; }
+    .power .vcard .vt { font-family: var(--font-display); font-weight: 700; font-size: 14.5px; line-height: 1.2; color: var(--innovia-navy); letter-spacing: -0.01em; }
+    .power .vcard .vd { font-size: 12.5px; line-height: 1.45; color: var(--fg-2); margin: 0; }
+    @media (max-width: 1080px) { .power .value-cards { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 540px) { .power .value-cards { grid-template-columns: 1fr; } }
+
+    /* ---- "What this isn't" — red ✕ disqualifier tags ---- */
+    .power .not-this { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border-subtle); }
+    .power .not-this .not-lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-3); display: block; margin-bottom: 12px; }
+    .power .not-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .power .not-tags li { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; line-height: 1; color: var(--fg-2); background: rgba(199,58,58,0.05); border: 1px solid rgba(199,58,58,0.22); border-radius: var(--r-pill); padding: 8px 13px 8px 11px; }
+    .power .not-tags li svg { width: 13px; height: 13px; color: var(--danger); flex: 0 0 auto; }
     .power .price { background: #fff; border: 1px solid var(--border-subtle); padding: 22px 22px 20px; align-self: start; }
     .power .price .was-lbl { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); }
     .power .price .was { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--fg-2); letter-spacing: -0.018em; margin: 5px 0 16px; }
@@ -300,7 +330,6 @@ html { scroll-behavior: smooth; }
 /* ============================================================
    Lead-capture form styles — bundled here because stg's site.css
    does not include the shared .lead-form block this page relies on.
-   (Source: AGP Innovia package src/styles/site.css)
    ============================================================ */
 .lead-form {
   background: rgba(255,255,255,0.05);
@@ -401,3 +430,8 @@ html { scroll-behavior: smooth; }
   .lead-form .submit-row { flex-direction: column; align-items: stretch; gap: 16px; }
   .lead-form .submit-row small { max-width: none; }
 }
+
+/* charter-rate reconciliation: stack price cards now read 'Included'
+   (not a $0 number), so shrink the badge so the word fits the column. */
+.power .price .free-badge { flex-direction: column; align-items: flex-start; gap: 4px; }
+.power .price .free-badge .n { font-size: 26px; }

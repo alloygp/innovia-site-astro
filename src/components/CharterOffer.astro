@@ -1,13 +1,14 @@
 ---
-// The Innovia Charter — founding-member offer (3 partners, first 90 days free, one CAM per metro).
-// Ported from the working HTML prototype. Tweaks/React removed; the chosen variant is set
-// via the body data-* attributes in the page route (charter-offer.astro).
+// The Innovia Charter — founding-member offer (3 partners, one $1,500 charter rate for the first 90 days).
+// Ported from the marketing HTML (Innovia Marketing Website v3). Tweaks/React panel removed;
+// the chosen variant is baked via the <body> data-* attributes in the page route.
+// NOTE: $1,500 charter rate is a PLACEHOLDER — search this file + charter-offer.astro for "1,500"/"charter rate" to update in one pass.
 import "../styles/tokens.css";
 import "../styles/site.css";
 import "../styles/charter-offer.css";
 ---
 
-<!-- ============ HEADER ============ -->
+  <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container row">
       <a href="/" class="brand">
@@ -61,13 +62,13 @@ import "../styles/charter-offer.css";
           <!-- FRAMING A — CHALLENGE -->
           <div class="frame-copy f-challenge">
             <h1>Do you have what it takes to <em>own your market?</em></h1>
-            <p class="lede">We are inviting <strong>one</strong> community management company in each metro into the founding charter cohort &mdash; and backing them with the full Innovia stack. <strong>Innovia membership, First Citizens Bank, and Alloy Growth Partners.</strong> The first 90 days, free. The only question is whether you&rsquo;re the operator who takes it.</p>
+            <p class="lede">We are inviting <strong>one</strong> community management company in each metro into the founding charter cohort &mdash; and backing them with the full Innovia stack. <strong>Innovia membership, First Citizens Bank, and Alloy Growth Partners.</strong> One $1,500 charter rate for your first 90 days. The only question is whether you&rsquo;re the operator who takes it.</p>
           </div>
 
           <!-- FRAMING B — INVITATION -->
           <div class="frame-copy f-invitation">
             <h1>Your most valuable <em>90 days</em> in business.</h1>
-            <p class="lede">Three forces behind your firm at once &mdash; <strong>Innovia membership, First Citizens Bank, and Alloy Growth Partners</strong> &mdash; free for your first 90 days. We open <strong>one charter seat per metro</strong>. This is the invitation to take yours.</p>
+            <p class="lede">Three forces behind your firm at once &mdash; <strong>Innovia membership, First Citizens Bank, and Alloy Growth Partners</strong> &mdash; for one $1,500 charter rate your first 90 days. We open <strong>one charter seat per metro</strong>. This is the invitation to take yours.</p>
           </div>
 
           <div class="actions">
@@ -88,52 +89,60 @@ import "../styles/charter-offer.css";
           <span class="flag">Charter member offer</span>
           <div class="t-head">
             <span class="lbl">The powerhouse</span>
-            <h2>Three forces. Ninety days. Zero cost.</h2>
+            <h2>Three forces. Ninety days. One charter rate.</h2>
             <p>Everything a charter member activates on day one &mdash; and what it would normally cost to run.</p>
           </div>
           <div class="rows">
             <div class="trow">
               <div class="who">
-                <span class="wm">innovia<span style="color:var(--innovia-green)"> membership</span></span>
+                <img class="tlogo innovia" src="/assets/logos/innovia-white-green.png" alt="Innovia Co-op">
                 <span class="role">The cooperative</span>
               </div>
               <div class="val">
                 <div class="was placeholder placeholder-inline">$3,600/qtr</div>
-                <div class="now">Free &middot; 90 days</div>
+                <div class="now">Included</div>
               </div>
             </div>
             <div class="trow">
               <div class="who">
-                <span class="wm bank">First Citizens Bank</span>
+                <img class="tlogo bank" src="/assets/logos/first-citizens-light.png" alt="First Citizens Bank">
                 <span class="role">Banking &amp; treasury</span>
               </div>
               <div class="val">
                 <div class="was placeholder placeholder-inline">$1,400/qtr</div>
-                <div class="now">Free &middot; 90 days</div>
+                <div class="now">Included</div>
               </div>
             </div>
             <div class="trow">
               <div class="who">
-                <span class="wm">Alloy <span class="lt" style="color:var(--innovia-green)">Growth</span></span>
+                <img class="tlogo alloy" src="/assets/logos/alloy-light.svg" alt="Alloy Growth Partners">
                 <span class="role">Brand &amp; growth program</span>
               </div>
               <div class="val">
                 <div class="was placeholder placeholder-inline">$19,500</div>
-                <div class="now">Free &middot; 90 days</div>
+                <div class="now">Included</div>
               </div>
             </div>
           </div>
           <div class="t-total">
-            <div class="l">
-              <span class="k">Launch value</span>
-              <span class="v placeholder placeholder-inline">$24,500<span class="pct">+</span></span>
+            <div class="tt-value-row">
+              <span class="k">Total program value</span>
+              <span class="v">$24,500</span>
             </div>
-            <div class="r">
-              <div class="now">$0</div>
-              <div class="span">Your first 90 days</div>
+            <div class="tt-rate">
+              <div class="lab">Your charter rate
+                <span class="sub">All three forces, activated for your first 90 days</span>
+              </div>
+              <div class="price">
+                <span class="was">$24,500</span>
+                <span class="now">$1,500<span class="per">first 90 days</span></span>
+              </div>
+            </div>
+            <div class="tt-save">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              <span><strong>$23,000</strong> in value, put to work for your firm</span>
             </div>
           </div>
-          <div class="t-foot">Figures illustrative &mdash; confirm final program values before publishing.</div>
         </div>
       </div>
     </div>
@@ -147,7 +156,7 @@ import "../styles/charter-offer.css";
           <div class="eyebrow"><span class="rule-mini"></span>The powerhouse, unpacked</div>
           <h2 style="margin-top:14px;">One firm. Three forces working in the same direction.</h2>
         </div>
-        <p>Most firms assemble these one at a time, over years, and pay full freight for each. A charter member switches all three on at once &mdash; and runs the first 90 days on us.</p>
+        <p>Most firms assemble these one at a time, over years, and pay full freight for each. A charter member switches all three on at once &mdash; and runs the first 90 days at one charter rate.</p>
       </div>
 
       <div class="powers">
@@ -171,7 +180,7 @@ import "../styles/charter-offer.css";
           <div class="price">
             <span class="was-lbl">Member dues</span>
             <div class="was placeholder placeholder-inline">$3,600 / quarter</div>
-            <div class="free-badge"><span class="n">$0</span><span class="u">first 90 days</span></div>
+            <div class="free-badge"><span class="n">Included</span><span class="u">in your charter rate</span></div>
             <p class="term">Dues waived through your charter window. Full member benefits live from day one.</p>
           </div>
         </div>
@@ -196,7 +205,7 @@ import "../styles/charter-offer.css";
           <div class="price">
             <span class="was-lbl">Service &amp; treasury fees</span>
             <div class="was placeholder placeholder-inline">$1,400 / quarter</div>
-            <div class="free-badge"><span class="n">$0</span><span class="u">first 90 days</span></div>
+            <div class="free-badge"><span class="n">Included</span><span class="u">in your charter rate</span></div>
             <p class="term">Standard service fees waived for the charter window while accounts are stood up.</p>
           </div>
         </div>
@@ -211,17 +220,52 @@ import "../styles/charter-offer.css";
           <div class="body">
             <h3>A growth engine pointed at your metro &mdash; built, funded, and handed to you.</h3>
             <p>Alloy Growth Partners doesn&rsquo;t hand you advice; they build the machine. A dedicated, market-targeted presence goes live for your firm, with paid demand behind it and a written plan you keep.</p>
-            <ul class="gets">
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A dedicated market-targeting landing page</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A managed PPC budget driving qualified board demand</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A local market takeover campaign</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>A custom CAM growth blueprint &mdash; yours to keep, with options to extend</li>
+            <ul class="value-cards">
+              <li class="vcard">
+                <div class="vtop">
+                  <span class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+                  <span class="vt">Market-targeting site</span>
+                </div>
+                <p class="vd">A dedicated landing page built for your firm and your metro &mdash; not a template.</p>
+              </li>
+              <li class="vcard">
+                <div class="vtop">
+                  <span class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></span>
+                  <span class="vt">Managed PPC budget</span>
+                </div>
+                <p class="vd">Paid spend driving qualified board demand straight to your firm.</p>
+              </li>
+              <li class="vcard">
+                <div class="vtop">
+                  <span class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"/><path d="M17 8h4v4"/></svg></span>
+                  <span class="vt">Local market takeover</span>
+                </div>
+                <p class="vd">A campaign engineered to own demand across your metro.</p>
+              </li>
+              <li class="vcard">
+                <div class="vtop">
+                  <span class="vico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v0a2 2 0 0 1 2-2z"/><path d="M7 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/><path d="M9 13h6M9 17h4"/></svg></span>
+                  <span class="vt">Custom CAM blueprint</span>
+                </div>
+                <p class="vd">A written growth plan &mdash; yours to keep, with options to extend.</p>
+              </li>
             </ul>
+            <div class="not-this">
+              <span class="not-lbl">What this isn&rsquo;t</span>
+              <ul class="not-tags">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>A generic marketing campaign</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Basic SEO services</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>AI-run gimmicks</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>A template website</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>A long-term lock-in</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>Advice you execute yourself</li>
+              </ul>
+            </div>
           </div>
           <div class="price">
-            <span class="was-lbl">Build, media &amp; blueprint</span>
+            <span class="was-lbl">CAM Growth Services</span>
             <div class="was placeholder placeholder-inline">$19,500 value</div>
-            <div class="free-badge"><span class="n">$0</span><span class="u">first 90 days</span></div>
+            <div class="free-badge"><span class="n">Included</span><span class="u">in your charter rate</span></div>
             <p class="term">Built and managed during the charter window. Extend on your terms after 90 days.</p>
           </div>
         </div>
@@ -230,7 +274,7 @@ import "../styles/charter-offer.css";
       <div class="sumline">
         <div class="l">
           <span class="k">What it adds up to</span>
-          <div class="v"><span class="placeholder placeholder-inline">$24,500+</span> of launch value, working for one firm in your metro &mdash; <em>$0 for 90 days.</em></div>
+          <div class="v"><span class="placeholder placeholder-inline">$24,500+</span> of launch value, working for one firm in your metro &mdash; <em>$1,500 your first 90 days.</em></div>
         </div>
         <div class="r">
           <a href="#start" class="btn btn-primary">Claim your metro
@@ -451,8 +495,8 @@ import "../styles/charter-offer.css";
         </div>
         <div class="step">
           <div class="when">Step 03 &middot; Days 01&ndash;90</div>
-          <h4>Ninety days, on us</h4>
-          <p>All three forces run for your firm at zero cost. At day 90 you continue on standard member terms &mdash; or you don&rsquo;t. No trap.</p>
+          <h4>Ninety days, one rate</h4>
+          <p>All three forces run for your firm for a single $1,500 charter rate. At day 90 you continue on standard member terms &mdash; or you don&rsquo;t. No trap.</p>
         </div>
       </div>
     </div>
@@ -467,9 +511,9 @@ import "../styles/charter-offer.css";
           <h2>Find out if the seat in your metro is <em>still open.</em></h2>
           <p>Tell us about your firm. If your market is open and you clear the bar, a member-owner will reach out within five business days &mdash; not a salesperson, an operator who runs a company like yours.</p>
           <div class="recap">
-            <div class="r"><span class="ic"></span><span class="nm">innovia membership</span><span class="tg">Cooperative</span><span class="free">90 days free</span></div>
-            <div class="r"><span class="ic"></span><span class="nm bank">First Citizens Bank</span><span class="tg">Banking</span><span class="free">90 days free</span></div>
-            <div class="r"><span class="ic"></span><span class="nm">Alloy Growth Partners</span><span class="tg">Growth</span><span class="free">90 days free</span></div>
+            <div class="r"><span class="ic"></span><span class="nm">innovia membership</span><span class="tg">Cooperative</span><span class="free">Included</span></div>
+            <div class="r"><span class="ic"></span><span class="nm bank">First Citizens Bank</span><span class="tg">Banking</span><span class="free">Included</span></div>
+            <div class="r"><span class="ic"></span><span class="nm">Alloy Growth Partners</span><span class="tg">Growth</span><span class="free">Included</span></div>
           </div>
         </div>
 
@@ -594,7 +638,7 @@ import "../styles/charter-offer.css";
           <ul>
             <li><a href="/summit">Summit 2027</a></li>
             <li><a href="/summit-2026">2026 Archive</a></li>
-            <li><a href="/summit/#past">Past Summits</a></li>
+            <li><a href="https://summit.innoviaco-op.com" target="_blank" rel="noopener">Past Summits</a></li>
           </ul>
         </div>
         <div class="newsletter">
