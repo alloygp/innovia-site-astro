@@ -556,7 +556,7 @@ const html = `<style>
     }
     .legacy .next {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 14px;
     }
     .legacy .next-card {
@@ -655,7 +655,7 @@ const html = `<style>
       .hof .inductee { grid-template-columns: 80px 1fr; gap: 18px; }
       .hof .inductee .citation, .hof .inductee .tags { grid-column: 1 / -1; padding-top: 8px; }
       .hof .footer-note { grid-template-columns: 1fr; }
-      .legacy .next { grid-template-columns: 1fr; }
+      .legacy .next { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
     }
   </style>
 
@@ -977,6 +977,12 @@ const html = `<style>
           <h4>The Vendor Program</h4>
           <p>The first deal grew into a vetted vendor program covering every line item a CAM company runs &mdash; banking, software, AI, insurance, staffing, security.</p>
           <span class="go">Read the pillar <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+        </a>
+        <a class="next-card" href="https://community.innoviaco-op.com" target="_blank" rel="noopener">
+          <span class="kind">Pillar 04</span>
+          <h4>The Member Portal</h4>
+          <p>A shared home for educational resources &mdash; board guides, operating playbooks, and session recordings the membership builds on and returns to.</p>
+          <span class="go">Visit the portal <svg class="arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>
         </a>
       </div>
     </div>
