@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 const html = `<style>
     body { background: var(--innovia-navy); color: rgba(255,255,255,0.78); }
-    .site-header {
+    /* Solid navy nav (matches other pages) — beats the global .site-header.inverse transparent rule */
+    .site-header, .site-header.inverse {
       background: rgba(15,36,71,0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
